@@ -5,28 +5,30 @@
 <div class="col-md-6">	
 	<form action="{{ path('createEvent') }}"  method="post">
 		<table class="table table-hover">
+			<tr>
+	   			<td  >Catégorie : </td>
+	   			<td>
+				    <select name="Categorie" class="custom-select">
+				      <option selected="">Select a categorie</option>
+				      <option  value="1">Party</option>
+				      <option  value="2">Study</option>
+				      <option  value="3">Theatre</option>
+				      <option  value="4">Cinema</option>
+				      <option  value="5">Restaurent</option>
+				      <option  value="6">Sport</option>
+				    </select>
+	   			</td>
+	   		</tr>
 	    	<tr>
 	    		<td  >Description : </td><td> <input type="text" name="Description" ></td>
 	    	</tr>
-<!-- 	    	<tr>
+	    	<tr>
 	   			<td>Lieu : </td><td><input type="text" name="Lieu" ></td>
 	   		</tr>
 	   		<tr>
-	   			<td  >Catégorie : </td>
 	   			<td>
-				    <select class="custom-select">
-				      <option selected="">Select a categorie</option>
-				      <option value="1">Party</option>
-				      <option value="2">Study</option>
-				      <option value="3">Theatre</option>
-				      <option value="4">Cinema</option>
-				      <option value="5">Restaurent</option>
-				      <option value="6">Sport</option>
-				    </select>
+	   				<input type="submit" value="AJOUTER" name="ajouter" class="btn btn-primary btn-lg btn-block">
 	   			</td>
-	   		</tr> -->
-	   		<tr>
-	   			<td><input type="submit" value="AJOUTER" name="ajouter" class="btn btn-primary btn-lg btn-block"></td>
 	   		</tr>
 	   	</table>
 	</form>

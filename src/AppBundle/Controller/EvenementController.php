@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Evenement;
+use AppBundle\Form\EvenementType;
 
 /**
 * @Route("/{_locale}/createEvent")
@@ -29,13 +30,30 @@ class EvenementController extends Controller{
     * @throws \LogicException
     */
     public function creerEvent(Request $request ){
-        $em = $this->getDoctrine()->getManager();
+/*        $em = $this->getDoctrine()->getManager();*/
         $evenement = new Evenement();
-        $form = $this->createForm(EvenementType::class, $evenement);
-        $form->handleRequest($request);
-        var_dump($form);
-        
 
+        $lieu = $_POST['Lieu'];
+        $descri = $_POST['Description'];
+        $categ = (int)$_POST['Categorie'];
+
+        $evenement->setLieu($lieu);
+        $evenement->setDescription($descri);
+        $evenement->setIdPersonne(1);
+        $evenement->setIdTypeEvenement($categ);
+        $em = $this->getDoctrine()->getManager();
+
+
+        // Étape 1 : On « persiste » l'entité
+        $em->persist($evenement);
+
+        // Étape 2 : On « flush » 
+        $em->flush();
+
+        /*$form = $this->createForm(EvenementType::class, $evenement);
+        $form->handleRequest($request);*/
+
+        return $this->render('Evenement/CreerEvenement.html.twig');
     }
 
 
