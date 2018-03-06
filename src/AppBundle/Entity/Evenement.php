@@ -23,13 +23,6 @@ class Evenement
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idEvenement", type="integer")
-     */
-    private $idEvenement;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255)
@@ -68,29 +61,6 @@ class Evenement
         return $this->id;
     }
 
-    /**
-     * Set idEvenement
-     *
-     * @param integer $idEvenement
-     *
-     * @return evenement
-     */
-    public function setIdEvenement($idEvenement)
-    {
-        $this->idEvenement = $idEvenement;
-
-        return $this;
-    }
-
-    /**
-     * Get idEvenement
-     *
-     * @return int
-     */
-    public function getIdEvenement()
-    {
-        return $this->idEvenement;
-    }
 
     /**
      * Set description

@@ -25,7 +25,7 @@ class DefaultController extends Controller
     */
 
     public function accueil(Request $request){
-        return $this->render('Accueil/Accueil.html.twig');
+        return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '']);
     }
 
     /**

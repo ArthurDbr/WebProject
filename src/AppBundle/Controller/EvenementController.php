@@ -37,27 +37,27 @@ class EvenementController extends Controller{
         $descri = addcslashes($_POST['Description'], '\'%_"/');
         $categ = (int)$_POST['Categorie'];
 
-
-        if( ! isset($_POST['Categorie'])){
+        if( $_POST['Categorie'] == '0'){
             return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => 'You need to add an event']);   
+        }else{
+
+            $evenement->setLieu($lieu);
+            $evenement->setDescription($descri);
+            $evenement->setIdPersonne(1);
+            $evenement->setIdTypeEvenement($categ);
+            $em = $this->getDoctrine()->getManager();
+
+            // Étape 1 : On « persiste » l'entité
+            $em->persist($evenement);
+
+            // Étape 2 : On « flush » 
+            $em->flush();
+
+            /*$form = $this->createForm(EvenementType::class, $evenement);
+            $form->handleRequest($request);*/
+
+            return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => 'Event created !']);
         }
-
-        $evenement->setLieu($lieu);
-        $evenement->setDescription($descri);
-        $evenement->setIdPersonne(1);
-        $evenement->setIdTypeEvenement($categ);
-        $em = $this->getDoctrine()->getManager();
-
-        // Étape 1 : On « persiste » l'entité
-        $em->persist($evenement);
-
-        // Étape 2 : On « flush » 
-        $em->flush();
-
-        /*$form = $this->createForm(EvenementType::class, $evenement);
-        $form->handleRequest($request);*/
-
-        return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => 'Event created !']);
     }
 
 

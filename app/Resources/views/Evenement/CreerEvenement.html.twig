@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% if erreur != '' %}
 <div class="alert alert-dismissible alert-danger">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
   <strong>Oh snap!</strong> {{ erreur }}
 </div>
+{% endif %}
 <div class="col-md-6">	
 	<form action="{{ path('createEvent') }}"  method="post">
 		<table class="table table-hover">
@@ -12,7 +13,7 @@
 	   			<td  >Catégorie : </td>
 	   			<td>
 				    <select name="Categorie" class="custom-select">
-				      <option selected="">Select a categorie</option>
+				      <option  value="0" selected="">Select a categorie</option>
 				      <option  value="1">Party</option>
 				      <option  value="2">Study</option>
 				      <option  value="3">Theatre</option>

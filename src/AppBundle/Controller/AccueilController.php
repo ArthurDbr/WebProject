@@ -18,7 +18,7 @@ class AccueilController extends Controller{
     */
 
     public function indexAction(Request $request){
-    	return $this->render('Accueil/Accueil.html.twig');
+    	return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '']);
     }
 
     /**
@@ -26,7 +26,7 @@ class AccueilController extends Controller{
     */
 
     public function CreerEvent(Request $request){
-        return $this->render('Evenement/CreerEvenement.html.twig');
+        return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '']);
     }
 
 }
