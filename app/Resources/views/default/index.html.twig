@@ -1,0 +1,27 @@
+
+
+{% block body %}
+
+    <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+      <div class="w3-display-topleft w3-padding-large w3-xlarge">
+        Logo
+      </div>
+      <div class="w3-display-middle">
+        <h1 class="w3-jumbo w3-animate-top">COMMUNITY</h1>
+        <hr class="w3-border-grey" >
+        <a href="{{ path('accueil') }}">
+        <div class="w3-large w3-center"><button type="button" class="btn btn-primary">Connection</button></div>
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+
+    <link href="{{ asset('css/bootstrapAccueil.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/Accueil.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+   
+{% endblock %}
