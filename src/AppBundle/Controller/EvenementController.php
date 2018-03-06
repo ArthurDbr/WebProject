@@ -33,16 +33,20 @@ class EvenementController extends Controller{
 /*        $em = $this->getDoctrine()->getManager();*/
         $evenement = new Evenement();
 
-        $lieu = $_POST['Lieu'];
-        $descri = $_POST['Description'];
+        $lieu = addcslashes($_POST['Lieu'], '\'%_');
+        $descri = addcslashes($_POST['Description'], '\'%_"/');
         $categ = (int)$_POST['Categorie'];
+
+
+        if( ! isset($_POST['Categorie'])){
+            return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => 'You need to add an event']);   
+        }
 
         $evenement->setLieu($lieu);
         $evenement->setDescription($descri);
         $evenement->setIdPersonne(1);
         $evenement->setIdTypeEvenement($categ);
         $em = $this->getDoctrine()->getManager();
-
 
         // Étape 1 : On « persiste » l'entité
         $em->persist($evenement);
@@ -53,7 +57,7 @@ class EvenementController extends Controller{
         /*$form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);*/
 
-        return $this->render('Evenement/CreerEvenement.html.twig');
+        return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => 'Event created !']);
     }
 
 
