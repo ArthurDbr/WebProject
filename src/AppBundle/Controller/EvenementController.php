@@ -9,11 +9,11 @@ use AppBundle\Entity\Evenement;
 use AppBundle\Form\EvenementType;
 
 /**
-* @Route("/{_locale}/createEvent")
+* @Route("/{_locale}/Event")
 */
 class EvenementController extends Controller{
 	/**
-    * @Route("/", name="evenement_index")
+    * @Route("/showEvent", name="showEvent")
     * @return \Symfony\Component\httpFoundation\Response
     * @throws \LogicException
     */
@@ -21,7 +21,19 @@ class EvenementController extends Controller{
     public function indexAction(Request $request){
         $repository = $this->getDoctrine()->getRepository(Evenement::class);
         $evenement = $repository->findAll();
-        return $this->render('Evenement/CreerEvenement.html.twig');
+        return $this->render('Evenement/ShowEvenement.html.twig', ['evenement' => $evenement]);
+    }
+
+    /**
+    * @Route("/delete/{id}", requirements={"id":"\d+"}, name="deleteEvenement")
+    */
+
+    public function deleteEvent(Request $request, Evenement $event){
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($event);
+        $em->flush();
+
+        return $this->redirectToRoute('evenement_index');
     }
 
     /**
@@ -29,7 +41,17 @@ class EvenementController extends Controller{
     * @return \Symfony\Component\httpFoundation\Response
     * @throws \LogicException
     */
-    public function creerEvent(Request $request ){
+
+    public function createEvent(Request $request){
+        return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '']);
+    }
+
+    /**
+    * @Route("/ajoutEvent", name="ajoutEvent")
+    * @return \Symfony\Component\httpFoundation\Response
+    * @throws \LogicException
+    */
+    public function ajoutEvent(Request $request ){
 /*        $em = $this->getDoctrine()->getManager();*/
         $evenement = new Evenement();
 

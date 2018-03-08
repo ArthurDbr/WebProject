@@ -5,6 +5,9 @@
         <title>{% block title %}Community{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link href="{{ asset('css/bootstrapAccueil.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/Accueil.css') }}" rel="stylesheet">
+
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -15,11 +18,12 @@
 
           <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
+
               <li class="nav-item active">
-                <a class="nav-link" href="{{ path('event') }}">Creer evenement <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ path('createEvent') }}">Create event</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="{{ path('showEvent') }}">My Event </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Pricing</a>
@@ -30,8 +34,10 @@
             </ul>
           </div>
         </nav>
+  
         {% block body %}
         {% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        {% endblock %}
     </body>
 </html>

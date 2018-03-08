@@ -15,13 +15,12 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            
+        return $this->render('default/index.html.twig', [   
         ]);
     }
 
     /**
-    * @Route("/accueil", name="accueil")
+    * @Route("/user/{_locale}/accueil", name="accueil")
     */
 
     public function accueil(Request $request){
@@ -29,7 +28,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/admin")
+     * @Route("/admin/{_locale}/accueil")
      */
     public function admin()
     {

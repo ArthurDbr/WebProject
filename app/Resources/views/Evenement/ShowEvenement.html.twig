@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="col-md-4">	
+		<table class="table table-hover">
+			{% for event in evenement %}
+			<tr>
+	   			<td  >Catégorie : </td>
+	   			<td>
+	   				{% if event.idTypeEvenement == 1 %}
+	   					Party
+	   				{% elseif event.idTypeEvenement == 2 %}
+	   					Study
+	   				{% elseif event.idTypeEvenement == 3 %}
+	   					Theatre
+	   				{% elseif event.idTypeEvenement == 4 %}
+	   					Cinema
+	   				{% elseif event.idTypeEvenement == 5 %}
+	   					Restaurent
+	   				{% elseif event.idTypeEvenement == 6 %}
+	   					Sport
+	   				{% endif %}
+	   			</td>
+	   		</tr>
+	    	<tr>
+	    		<td  >Description : </td><td> {{ event.description }}</td>
+	    	</tr>
+	    	<tr>
+	   			<td>Lieu : </td><td> {{ event.lieu }}</td>
+	   		</tr>
+	   		<tr>
+	   			<td>
+	   				<a href="{{ path('deleteEvenement', { id :  event.id }) }}"><input type="submit" value="delete" name="delete" class="btn btn-danger btn-sm btn-block"></a>
+	   			</td>
+	   		</tr>
+	   		{% endfor%}
+	   	</table>
+
+</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+  
+{% endblock %}
