@@ -56,7 +56,7 @@ class Evenement
     *@ORM\Column(name="dateEvenement", type="string")
     */
     private $dateEvenement;
-
+    
     /**
     *@var string
     *
