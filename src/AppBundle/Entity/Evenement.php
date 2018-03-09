@@ -50,6 +50,20 @@ class Evenement
      */
     private $idTypeEvenement;
 
+    /**
+    *@var string
+    *
+    *@ORM\Column(name="dateEvenement", type="string")
+    */
+    private $dateEvenement;
+
+    /**
+    *@var string
+    *
+    *@ORM\Column(name="heureEvenement", type="string")
+    */
+    private $heureEvenement;
+
 
     /**
      * Get id
@@ -157,5 +171,54 @@ class Evenement
     {
         return $this->idTypeEvenement;
     }
+
+    /**
+     * Get dateEvenement
+     *
+     * @return string
+     */
+    public function getDateEvenement()
+    {
+        return $this->dateEvenement;
+    }
+
+    /**
+     * Set dateEvenement
+     *
+     * @param string $dateEvenement
+     *
+     * @return evenement
+     */
+    public function setDateEvenement($dateEvenement)
+    {
+        $this->dateEvenement = $dateEvenement;
+
+        return $this;
+    }
+
+    /**
+     * Get heureEvenement
+     *
+     * @return string
+     */
+    public function getHeureEvenement()
+    {
+        return $this->heureEvenement;
+    }
+
+    /**
+     * Set heureEvenement
+     *
+     * @param string $heureEvenement
+     *
+     * @return evenement
+     */
+    public function setHeureEvenement($heureEvenement)
+    {
+        $this->heureEvenement = $heureEvenement;
+
+        return $this;
+    }
+
 }
 

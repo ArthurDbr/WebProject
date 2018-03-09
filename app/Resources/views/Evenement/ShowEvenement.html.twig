@@ -4,7 +4,6 @@
 
 <div class="col-md-4">	
 		<table class="table table-hover">
-			{% for event in evenement %}
 			<tr>
 	   			<td  >Catégorie : </td>
 	   			<td>
@@ -29,12 +28,20 @@
 	    	<tr>
 	   			<td>Lieu : </td><td> {{ event.lieu }}</td>
 	   		</tr>
+	    	<tr>
+	   			<td>Date : </td><td> {{ event.dateEvenement }}</td>
+	   		</tr>
+	    	<tr>
+	   			<td>Heure : </td><td> {{ event.heureEvenement }}</td>
+	   		</tr>
 	   		<tr>
 	   			<td>
-	   				<a href="{{ path('deleteEvenement', { id :  event.id }) }}"><input type="submit" value="delete" name="delete" class="btn btn-danger btn-sm btn-block"></a>
+	   				<a href="{{ path('deleteEvenement', { id :  event.id }) }}"><input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm btn-block"></a>
+	   			</td>
+	   			<td>
+	   				<a href="{{ path('modifyEvenement', { id :  event.id }) }}"><input type="submit" value="Modify" name="modify" class="btn btn-info btn-sm btn-block"></a>
 	   			</td>
 	   		</tr>
-	   		{% endfor%}
 	   	</table>
 
 </div>

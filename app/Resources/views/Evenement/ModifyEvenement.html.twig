@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap-material-datetimepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/date.js') }}"></script>
+
+{% endblock %}
+{% block body %}
+{% if erreur != '' %}
+<div class="alert alert-dismissible alert-danger">
+  <strong>Ouuups !</strong> {{ erreur }}
+</div>
+{% endif %}
+<div class="col-md-4">	
+	<form action="{{ path('modifyEvenement', { id :  event.id }) }}"  method="post">
+		<table class="table table-hover">
+			<tr>
+	   			<td  >Category : </td>
+	   			<td>
+				    <select name="Categorie" class="custom-select">
+				      <option  value="{{event.idTypeEvenement}}" selected="">
+				      		{% if event.idTypeEvenement == 1 %}
+			   					Party
+			   				{% elseif event.idTypeEvenement == 2 %}
+			   					Study
+			   				{% elseif event.idTypeEvenement == 3 %}
+			   					Theatre
+			   				{% elseif event.idTypeEvenement == 4 %}
+			   					Cinema
+			   				{% elseif event.idTypeEvenement == 5 %}
+			   					Restaurent
+			   				{% elseif event.idTypeEvenement == 6 %}
+			   					Sport
+			   				{% endif %}
+				      </option>
+				      <option  value="1">Party</option>
+				      <option  value="2">Study</option>
+				      <option  value="3">Theatre</option>
+				      <option  value="4">Cinema</option>
+				      <option  value="5">Restaurent</option>
+				      <option  value="6">Sport</option>
+				    </select>
+	   			</td>
+	   		</tr>
+	    	<tr>
+	    		<td  >Description : </td><td> <input class="form-control" type="text" name="Description" 
+	    			placeholder="{{ event.description}}" value="{{ event.description}}" ></td>
+	    	</tr>
+	    	<tr>
+	   			<td>Lieu : </td><td><input class="form-control" type="text" name="Lieu" 
+	   				placeholder="{{ event.lieu }}" value="{{ event.lieu }}"></td>
+	   		</tr>
+	   		<tr>
+	   			<td>
+	   				Date :
+	   			</td>
+	   			<td>
+  					<input name="date" type="text" class="form-control" placeholder="{{ event.dateEvenement }}"
+  					onfocus="(this.type='date')" onblur="'this.type='text')" value="{{ event.dateEvenement }}">
+  				</td>
+	   		</tr>
+	   		<tr>
+	   			<td>
+					Time : 
+				</td>
+				<td>
+					<div class="form-control-wrapper">
+						<input name = "heure" type="text" id="time" class="form-control floating-label" 
+						placeholder="" value="{{event.heureEvenement}}">
+					</div>
+
+  				</td>
+	   		</tr>
+	   		<tr>
+	   			<td>
+	   				<input type="submit" value="Modifier" name="modifer" class="btn btn-primary btn-md btn-block">
+	   			</td>
+	   			<td>
+	   				<input type="submit" value="Annuler" name="modifier" class="btn btn-success btn-md btn-block">
+	   			</td>
+	   		</tr>
+	   	</table>
+	</form>
+
+</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+		<link rel="stylesheet" href="{{ asset('css/bootstrap-material-datetimepicker.css') }}" />
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   
+{% endblock %}

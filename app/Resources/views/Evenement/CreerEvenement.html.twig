@@ -1,16 +1,27 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap-material-datetimepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/date.js') }}"></script>
+
+{% endblock %}
 {% block body %}
 {% if erreur != '' %}
 <div class="alert alert-dismissible alert-danger">
-  <strong>Oh snap!</strong> {{ erreur }}
+  <strong>Ouuups !</strong> {{ erreur }}
 </div>
 {% endif %}
-<div class="col-md-6">	
+<div class="col-md-4">	
 	<form action="{{ path('ajoutEvent') }}"  method="post">
 		<table class="table table-hover">
 			<tr>
-	   			<td  >Catégorie : </td>
+	   			<td  >Category : </td>
 	   			<td>
 				    <select name="Categorie" class="custom-select">
 				      <option  value="0" selected="">Select a categorie</option>
@@ -24,15 +35,37 @@
 	   			</td>
 	   		</tr>
 	    	<tr>
-	    		<td  >Description : </td><td> <input type="text" name="Description" ></td>
+	    		<td  >Description : </td><td> <input type="text" name="Description" class="form-control" ></td>
 	    	</tr>
 	    	<tr>
-	   			<td>Lieu : </td><td><input type="text" name="Lieu" ></td>
+	   			<td>Lieu : </td><td><input type="text" name="Lieu" class="form-control"></td>
 	   		</tr>
 	   		<tr>
 	   			<td>
-	   				<input type="submit" value="AJOUTER" name="ajouter" class="btn btn-primary btn-lg btn-block">
+	   				Date :
 	   			</td>
+	   			<td>
+  					<input name="date" type="date" class="form-control" >
+  				</td>
+	   		</tr>
+	   		<tr>
+	   			<td>
+					Time : 
+				</td>
+				<td>
+					<div class="form-control-wrapper">
+						<input name = "heure" type="text" id="time" class="form-control floating-label" placeholder="">
+					</div>
+
+  				</td>
+	   		</tr>
+	   		<tr>
+	   			<td>
+	   				<input type="submit" value="AJOUTER" name="ajouter" class="btn btn-primary btn-md btn-block">
+	   			</td>
+	   		</tr>
+	   		<tr>
+	   			<td></td>
 	   		</tr>
 	   	</table>
 	</form>
@@ -41,5 +74,10 @@
 {% endblock %}
 
 {% block stylesheets %}
+
+
+		<link rel="stylesheet" href="{{ asset('css/bootstrap-material-datetimepicker.css') }}" />
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
    
 {% endblock %}
