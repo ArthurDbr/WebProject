@@ -30,7 +30,7 @@ security:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
                 always_use_default_target_path : true
-                default_target_path: /accueil
+                default_target_path: /user/{_locale}/accueil
                 use_referer : true
 
             logout:       true
