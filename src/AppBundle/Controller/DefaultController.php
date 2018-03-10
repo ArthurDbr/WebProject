@@ -18,6 +18,7 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', [   
         ]);
     }
+    
 
     /**
     * @Route("/user/{_locale}/accueil", name="accueil")

@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<div class="container">
+    <div class="card hovercard">
+        <div class="card-background">
+            <img class="card-bkimg" alt="" src="{{ asset('img/fondProfil.png') }}" >>
+            <!-- http://lorempixel.com/850/280/people/9/ -->
+        </div>
+        <div class="useravatar">
+            <img alt="" src="{{ asset('img/fondProfil.png') }}" >
+        </div>
+        <div class="card-info"> <span class="card-title">{{ app.user.username }}</span>
+
+        </div>
+    </div>
+	<div class="card bg-light mb-3" style="max-width: 40rem;">
+	<div class="card-body">
+		<h4 class="card-header card-title">General information</h4>
+		<form action="{{ path('ModifProfil') }}"  method="post">
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						<th scope="row">User Name :</th>
+						<td>
+							<input class="form-control" type="text" name="UserName" 
+		    				placeholder="{{ app.user.username }}" value="{{ app.user.username }}" >
+		    			</td>
+					</tr>
+					<tr>
+						<th scope="row">Name :</th>
+						<td>
+							<input class="form-control" type="text" name="Nom" 
+		    				placeholder="{{ app.user.nom }}" value="{{ app.user.nom }}" >
+		    			</td>
+					</tr>
+					<tr>
+						<th scope="row">First Name :</th>
+						<td><input class="form-control" type="text" name="Prenom" 
+		    				placeholder="{{ app.user.prenom }}" value="{{ app.user.prenom }}" ></td>
+					</tr>
+					<tr>
+						<th scope="row">Mail :</th>
+						<td><input class="form-control" type="text" name="Mail" 
+		    				placeholder="{{ app.user.email }}" value="{{ app.user.email }}" ></td>
+					</tr>
+					<tr>
+						<th scope="row">Age :</th>
+						<td><input class="form-control" type="text" name="Age" 
+		    				placeholder="{{ app.user.age }}" value="{{ app.user.age }}" ></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<a href="{{ path('ModifProfil') }}">
+								<input type="submit" value="Modify" name="modifer" class="btn btn-success btn-md btn-block">
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+
+	
+	</div>
+            
+    
+{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('css/Profil.css') }}" rel="stylesheet">
+
+
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}

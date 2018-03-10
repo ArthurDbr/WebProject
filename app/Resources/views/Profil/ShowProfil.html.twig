@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% if Modifprofil != '' %}
+	<div class="alert alert-dismissible alert-info">
+	  <strong>Great !</strong> {{Modifprofil}}
+	</div>
+{% endif %}
+
+<div class="container">
+    <div class="card hovercard">
+        <div class="card-background">
+            <img class="card-bkimg" alt="" src="{{ asset('img/fondProfil.png') }}" >>
+            <!-- http://lorempixel.com/850/280/people/9/ -->
+        </div>
+        <div class="useravatar">
+            <img alt="" src="{{ asset('img/fondProfil.png') }}" >
+        </div>
+        <div class="card-info"> <span class="card-title">{{ app.user.username }}</span>
+
+        </div>
+    </div>
+	<div class="card bg-light mb-3" style="max-width: 40rem;">
+	<div class="card-body">
+		<h4 class="card-header card-title">General information</h4>
+		<table class="table table-hover">
+			<tbody>
+				<tr>
+					<th scope="row">Nom :</th>
+					<td>{{ app.user.nom }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Prenom :</th>
+					<td>{{ app.user.prenom }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Mail :</th>
+					<td>{{ app.user.email }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Age :</th>
+					<td>{{ app.user.age }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 col-sm-push-6">
+		</div>
+		<div class="col-sm-6 col-sm-pull-6">
+			<a href="{{ path('ModifProfil') }}">
+				<input type="submit" value="Modify" name="modifer" class="btn btn-info btn-md btn-block">
+			</a>
+		</div>
+	</div>
+	
+	</div>
+            
+    
+{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('css/Profil.css') }}" rel="stylesheet">
+
+
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}
