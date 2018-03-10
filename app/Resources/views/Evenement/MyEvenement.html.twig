@@ -1,45 +1,63 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-<div class="col-md-4">	
-
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th scope="col">Type</th>
-					<th scope="col">Date</th>
-				</tr>
-			</thead>
-			{% for event in evenement %}
-			<tr>
-	   			<td>
-	   				{% if event.idTypeEvenement == 1 %}
-	   					Party
-	   				{% elseif event.idTypeEvenement == 2 %}
-	   					Study
-	   				{% elseif event.idTypeEvenement == 3 %}
-	   					Theatre
-	   				{% elseif event.idTypeEvenement == 4 %}
-	   					Cinema
-	   				{% elseif event.idTypeEvenement == 5 %}
-	   					Restaurent
-	   				{% elseif event.idTypeEvenement == 6 %}
-	   					Sport
-	   				{% endif %}
-	   			</td>
-				<td> {{ event.dateEvenement }}</td>
-				<td>
-	   				<a href="{{ path('showEvenement', { id :  event.id }) }}"><input type="submit" value="more info" name="Info" class="btn btn-info btn-sm btn-block"></a>
-	   			</td>
-	    	</tr>
-	   		{% endfor%}
-	   	</table>
-
+<div class="jumbotron">
+  <h1 class="display-4">Your personnal events </h1>
+  <p class="lead">Here you can see the events you've created or the events you'll participate</p>
+  <hr class="my-4">
 </div>
+
+<section class="row-section">
+    <div class="container">
+	    <div class="col-md-10 offset-md-1 row-block">
+	        <ul id="sortable">
+	        	{% for participe in participantEvenement %}
+	        		
+		        	{% for event in evenement %}
+		        		{% if  ( participe.idEvenement == event.id   and  participe.idPersonne == app.user.id ) or 
+		        			(  app.user.id == event.idPersonne  ) %}
+
+			            <li><div class="media">
+			            <div class="media-left align-self-center">
+			                <img class="rounded-circle" src="{{ asset('img/fondProfil.png') }}">
+			            </div>
+			            <div class="media-body">
+			            	<h4>
+			            	</h4>
+			            	<p>
+			            	<i> 
+			            		{% if event.idTypeEvenement == 1 %}
+				   					Party
+				   				{% elseif event.idTypeEvenement == 2 %}
+				   					Study
+				   				{% elseif event.idTypeEvenement == 3 %}
+				   					Theatre
+				   				{% elseif event.idTypeEvenement == 4 %}
+				   					Cinema
+				   				{% elseif event.idTypeEvenement == 5 %}
+				   					Restaurent
+				   				{% elseif event.idTypeEvenement == 6 %}
+				   					Sport
+				   				{% endif %}
+				   			</i><br>
+			                {{ event.dateEvenement }}</p>
+			            </div>
+			            <div class="media-right align-self-center">
+			                <a href="{{ path('showEvenement', { id :  event.id }) }}"><input type="submit" value="more info" name="Info" class="btn btn-info btn-xs btn-block"></a>
+			            </div>
+			        </div></li>
+			        {% endif %}
+			        {% endfor %}
+		        {% endfor %}
+	        
+	        </ul>
+	    </div>
+</div>
+</section>
 
 {% endblock %}
 
 {% block stylesheets %}
-  
+  	<link href="{{ asset('css/Events.css') }}" rel="stylesheet">
+
 {% endblock %}

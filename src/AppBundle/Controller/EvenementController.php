@@ -6,7 +6,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Evenement;
+use AppBundle\Entity\Users;
 use AppBundle\Form\EvenementType;
+use AppBundle\Entity\ParticipantEvenement;
 
 /**
 * @Route("/{_locale}/Event")
@@ -18,9 +20,12 @@ class EvenementController extends Controller{
     * @throws \LogicException
     */
     public function indexAction(Request $request){
-        $repository = $this->getDoctrine()->getRepository(Evenement::class);
-        $evenement = $repository->findAll();
-        return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement]);
+        $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
+        $repository2 = $this->getDoctrine()->getRepository(ParticipantEvenement::class);
+        $evenement = $repository1->findAll();
+        $ParticipantEvenement = $repository2->findAll();
+        return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement, 
+                                                                'participantEvenement'=> $ParticipantEvenement,]);
     }
 
     /**
@@ -43,7 +48,6 @@ class EvenementController extends Controller{
                 return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $event]);
             }else{
                 $em = $this->getDoctrine()->getManager();
-                $evenement = new Evenement();
                 $userId = $this->getUser()->getId();
 
                 $lieu = addcslashes($_POST['Lieu'], '\'%_');
@@ -81,7 +85,7 @@ class EvenementController extends Controller{
         $em->remove($event);
         $em->flush();
 
-        return $this->redirectToRoute('showEvent');
+        return $this->redirectToRoute('showEvenement');
     }
 
     /**
@@ -120,16 +124,11 @@ class EvenementController extends Controller{
             $evenement->setHeureEvenement($heure);
             $em = $this->getDoctrine()->getManager();
 
-            // Étape 1 : On « persiste » l'entité
             $em->persist($evenement);
 
-            // Étape 2 : On « flush » 
             $em->flush();
 
-            /*$form = $this->createForm(EvenementType::class, $evenement);
-            $form->handleRequest($request);*/
-
-            return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => 'Event created !']);
+            return $this->redirectToRoute('MyEvent');
         }
     }
 
