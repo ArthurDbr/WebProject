@@ -20,7 +20,7 @@ fos_user:
         sender_name: "test"
     registration:
         form:
-        type: AppBundle_Users_registration
+            type: AppBundle\Form\RegistrationFormType
 
 framework:
     #esi: ~
