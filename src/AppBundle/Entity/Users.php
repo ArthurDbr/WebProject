@@ -61,9 +61,9 @@ class Users extends BaseUser
     {
         return $this->id;
     }
-    public function setId($id){
+    /*public function setId($id){
       this->id = $id;
-    }
+    }*/
     /**
      * Get age
      *
