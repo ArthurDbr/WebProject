@@ -14,8 +14,7 @@ namespace AppBundle\Form;
             parent::buildForm($builder, $options);
 
             // Ajoutez vos champs ici, revoilà notre champ *location* :
-            $builder->add('nom');
-            $builder->add('id');
+            $builder->add('nom')->('age')->('prenom')->('id');
         }
 
       /*  public function getName()
