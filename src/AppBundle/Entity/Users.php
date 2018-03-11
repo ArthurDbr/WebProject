@@ -31,31 +31,13 @@ class Users extends BaseUser
      * @ORM\Column(name="age", type="integer", nullable=true)
      */
      protected $age;
-     /**
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
-    protected $email;
 
-    /**
-     * @ORM\Column(name="username", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     */
-    protected $username;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
     protected $plainPassword;
-    /**
-     * The below length depends on the "algorithm" you use for encoding
-     * the password, but this works well with bcrypt.
-     *
-     * @ORM\Column(type="string", length=64)
-     */
-    protected $password;
 
     /**
      * @var string
