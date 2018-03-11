@@ -32,4 +32,5 @@ namespace AppBundle\Form;
             return 'AppBundle_users_registration';
         }
     }
+    
 ?>
