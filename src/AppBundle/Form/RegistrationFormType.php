@@ -18,9 +18,9 @@ namespace AppBundle\Form;
             $builder->add('id');
         }
 
-        public function getName()
+      /*  public function getName()
         {
-            return 'myapp_user_registration';
-        }
+            return 'AppBundle_users';
+        }*/
     }
 ?>
