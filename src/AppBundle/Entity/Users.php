@@ -4,6 +4,9 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Users
@@ -32,26 +35,26 @@ class Users extends BaseUser
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    private $email;
+    protected $email;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      */
-    private $username;
+    protected $username;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
-    private $plainPassword;
+    protected $plainPassword;
     /**
      * The below length depends on the "algorithm" you use for encoding
      * the password, but this works well with bcrypt.
      *
      * @ORM\Column(type="string", length=64)
      */
-    private $password;
+    protected $password;
 
     protected $age;
 
