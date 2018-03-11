@@ -12,7 +12,7 @@ namespace AppBundle\Form;
 
             // Ajoutez vos champs ici, revoilà notre champ *location* :
             $builder->add('nom');
-            $builder->add('id';)
+            $builder->add('id');
         }
 
         public function getName()
