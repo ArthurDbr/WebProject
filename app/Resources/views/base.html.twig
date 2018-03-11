@@ -7,6 +7,10 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('img/Logo.svg') }}" />
         <link href="{{ asset('css/bootstrapAccueil.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/Accueil.css') }}" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 
     </head>
     <body>
@@ -20,20 +24,35 @@
             <ul class="navbar-nav mr-auto">
 
               <li class="nav-item active">
-                <a class="nav-link" href="{{ path('createEvent') }}">Create event</a>
+                <a class="nav-link" href="{{ path('createEvent') }}">{{ 'nav.create'|trans }}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ path('MyEvent') }}">My Event </a>
+                <a class="nav-link" href="{{ path('MyEvent') }}">{{ 'nav.myEvent'|trans }} </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ path('MyProfil') }}">My Profil</a>
+                <a class="nav-link" href="{{ path('MyProfil') }}">{{ 'nav.profil'|trans }}</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
               </li>
             </ul>
           </div>
+          <nav class="navbar navbar-inverse bg-secondary">
+          <ul class="nav navbar-right col-xs-4">
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Changer de langue</a>
+            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
+            <a class="dropdown-item" href="{{ path('accueil_index', {'_locale':'fr'}) }}">Français</a>
+            <a class="dropdown-item" href="{{ path('accueil_index', {'_locale':'en'}) }}">English</a>
+            </div>
+            </li>
+          </ul>
+          </nav>
+
         </nav>
+
+
+
         
   
         {% block body %}
