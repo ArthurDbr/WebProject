@@ -30,15 +30,16 @@ class Users extends BaseUser
      *
      * @ORM\Column(name="age", type="integer", nullable=true)
      */
+     protected $age;
      /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
     protected $email;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      */
     protected $username;
@@ -55,8 +56,6 @@ class Users extends BaseUser
      * @ORM\Column(type="string", length=64)
      */
     protected $password;
-
-    protected $age;
 
     /**
      * @var string
