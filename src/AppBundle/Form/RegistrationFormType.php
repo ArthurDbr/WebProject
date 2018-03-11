@@ -6,6 +6,9 @@ namespace AppBundle\Form;
 
     class RegistrationFormType extends BaseType
     {
+      /**
+       * {@inheritdoc}
+       */
         public function buildForm(FormBuilder $builder, array $options)
         {
             parent::buildForm($builder, $options);
