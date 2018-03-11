@@ -44,6 +44,15 @@ class Users extends BaseUser
     protected $prenom;
 
     /**
+    *constructeur
+    *@return Users
+    */
+    public function __construct()
+    {
+
+    }
+
+    /**
      * Get id
      *
      * @return int
@@ -52,7 +61,9 @@ class Users extends BaseUser
     {
         return $this->id;
     }
-
+    public function setId($id){
+      this->id = $id;
+    }
     /**
      * Get age
      *
@@ -128,4 +139,3 @@ class Users extends BaseUser
 
 
 }
-
