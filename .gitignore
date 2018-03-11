@@ -16,3 +16,4 @@
 /vendor/
 /web/bundles/
 src/AppBundle/Form/RegistrationFormType.php
+src/AppBundle/Form/RegistrationFormType.php
