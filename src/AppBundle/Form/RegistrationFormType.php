@@ -12,10 +12,11 @@ namespace AppBundle\Form;
        */
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
+          $builder->add('nom')->add('age')->add('prenom');
             parent::buildForm($builder, $options);
 
             // Ajoutez vos champs ici, revoilà notre champ *location* :
-            $builder->add('nom')->add('age')->add('prenom');
+
         }
 
     public function getParent()
@@ -32,5 +33,5 @@ namespace AppBundle\Form;
             return 'AppBundle_users_registration';
         }
     }
-    
+
 ?>
