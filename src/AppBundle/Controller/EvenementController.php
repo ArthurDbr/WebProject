@@ -4,6 +4,14 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Users;
@@ -94,6 +102,24 @@ class EvenementController extends Controller{
     * @throws \LogicException
     */
     public function createEvent(Request $request){
+        // On crée un objet Advert
+
+        $event = new Evenement();
+
+        // On crée le FormBuilder grâce au service form factory
+        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $event);
+        // On ajoute les champs de l'entité que l'on veut à notre formulaire
+        $formBuilder
+          ->add('idTypeEvenement', ChoiceType::class, array('choices' => array('')))
+          ->add('title',     TextType::class)
+          ->add('content',   TextareaType::class)
+          ->add('author',    TextType::class)
+          ->add('published', CheckboxType::class)
+          ->add('save',      SubmitType::class)
+        ;
+        // Pour l'instant, pas de candidatures, catégories, etc., on les gérera plus tard
+        // À partir du formBuilder, on génère le formulaire
+        $form = $formBuilder->getForm();
         return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '']);
     }
 
@@ -122,7 +148,7 @@ class EvenementController extends Controller{
             $evenement->setIdTypeEvenement($categ);
             $evenement->setDateEvenement($date);
             $evenement->setHeureEvenement($heure);
-            $em = $this->getDoctrine()->getManager();
+            
 
             $em->persist($evenement);
 

@@ -36,19 +36,17 @@
                 <a class="nav-link" href="#">About</a>
               </li>
             </ul>
-          </div>
-          <nav class="navbar navbar-inverse bg-secondary">
-          <ul class="nav navbar-right col-xs-4">
-            <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Changer de langue</a>
-            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
-            <a class="dropdown-item" href="{{ path('accueil_index', {'_locale':'fr'}) }}">Français</a>
-            <a class="dropdown-item" href="{{ path('accueil_index', {'_locale':'en'}) }}">English</a>
+          
+          <ul class="nav navbar-right ">
+            <li class="nav-item dropdown bg-light">
+            <a class="nav-link  dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">langue</a>
+            <div class="dropdown-menu " x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px;  max-width:30px;">
+            <a class="dropdown-item" href="{{ path('accueil_index', {'_locale':'fr'}) }}">Fr</a>
+            <a class="dropdown-item" href="{{ path('accueil_index', {'_locale':'en'}) }}">En</a>
             </div>
             </li>
           </ul>
-          </nav>
-
+          </div>
         </nav>
 
 

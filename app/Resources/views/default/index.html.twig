@@ -1,4 +1,8 @@
-
+<head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Community{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/Logo.svg') }}" />
+</head>
 
 {% block body %}
 
@@ -10,8 +14,11 @@
         <h1 class="w3-jumbo w3-animate-top">COMMUNITY</h1>
         <hr class="w3-border-grey" >
         <a href="{{ path('fos_user_security_login') }}">
-          
         <div class="w3-large w3-center"><button type="button" class="btn btn-primary">Connexion</button></div>
+        </a>
+        <a href="{{ path('user_registration') }}">
+        <div class="w3-large w3-center"><button type="button" class="btn btn-primary">Inscription</button></div>
+        </a>
       </div>
     </div>
 

@@ -1,3 +1,7 @@
 nav.create: 'Create Event'
 nav.myEvent: 'My Event'
 nav.profil: 'My Profil'
+title.allEvents: 'All the events'
+description.allEvents: 'Here you can see all the events'
+title.myEvents: 'My events'
+description.myEvents: "Here you can see the events you've created or the events you'll participate"
