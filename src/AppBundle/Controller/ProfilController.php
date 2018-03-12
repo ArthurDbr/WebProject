@@ -9,7 +9,7 @@ use AppBundle\Entity\Users;
 use AppBundle\Form\EvenementType;
 
 /**
-* @Route("/{_locale}/Profil")
+* @Route("/user/{_locale}/Profil")
 */
 class ProfilController extends Controller{
 	/**
@@ -22,6 +22,19 @@ class ProfilController extends Controller{
 
         return $this->render('Profil/ShowProfil.html.twig', ['profil' => $profil,
                                                             'Modifprofil' => '']);
+    }
+
+    /**
+    * @Route("/", name="modifTemplate")
+    * @return \Symfony\Component\httpFoundation\Response
+    * @throws \LogicException
+    */
+    public function changerTheme(Request $request){
+        $template = 'United';
+        
+        return $this->render('Profil/ShowProfil.html.twig', ['profil' => $profil,
+                                                            'Modifprofil' => '']);
+        
     }
 
     /**

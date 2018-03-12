@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block body %}
 {% if Modifprofil != '' %}
 	<div class="alert alert-dismissible alert-info">
 	  <strong>Great !</strong> {{Modifprofil}}
 	</div>
 {% endif %}
+
 
 <div class="container">
     <div class="card hovercard">
@@ -53,6 +56,15 @@
 			</a>
 		</div>
 	</div>
+	<label class="switch"> 
+		
+		<a href="{{ path('modifTemplate') }}">
+			<input type="checkbox" name="template" value>
+			<span class="slider round"></span>
+		</a> 
+	</label>
+	<p>Changer de thème</p>
+
 	
 	</div>
             
@@ -61,9 +73,11 @@
 
 {% block stylesheets %}
 	<link href="{{ asset('css/Profil.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/bouton.css') }}" rel="stylesheet">
 
 
 {% endblock %}
 {% block javascripts %}
+	<script type="text/javascript" src="{{ asset('js/bootstrap-toggle.js')}}"></script>
 
 {% endblock %}

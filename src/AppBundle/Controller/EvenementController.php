@@ -19,11 +19,11 @@ use AppBundle\Form\EvenementType;
 use AppBundle\Entity\ParticipantEvenement;
 
 /**
-* @Route("/{_locale}/Event")
+* @Route("/user/{_locale}/Event")
 */
 class EvenementController extends Controller{
 	/**
-    * @Route("/MyEvent", name="MyEvent")
+    * @Route("/", name="MyEvent")
     * @return \Symfony\Component\httpFoundation\Response
     * @throws \LogicException
     */
@@ -102,24 +102,6 @@ class EvenementController extends Controller{
     * @throws \LogicException
     */
     public function createEvent(Request $request){
-        // On crée un objet Advert
-
-        $event = new Evenement();
-
-        // On crée le FormBuilder grâce au service form factory
-        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $event);
-        // On ajoute les champs de l'entité que l'on veut à notre formulaire
-        $formBuilder
-          ->add('idTypeEvenement', ChoiceType::class, array('choices' => array('')))
-          ->add('title',     TextType::class)
-          ->add('content',   TextareaType::class)
-          ->add('author',    TextType::class)
-          ->add('published', CheckboxType::class)
-          ->add('save',      SubmitType::class)
-        ;
-        // Pour l'instant, pas de candidatures, catégories, etc., on les gérera plus tard
-        // À partir du formBuilder, on génère le formulaire
-        $form = $formBuilder->getForm();
         return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '']);
     }
 
