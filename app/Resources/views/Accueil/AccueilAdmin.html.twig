@@ -17,24 +17,27 @@
 	    <div class="col-md-10 offset-md-1 row-block">
 	        <ul id="sortable">
 				{% for profil in profils %}
-		            <li><div class="media">
-		            <div class="media-left align-self-center">
-		                <img class="rounded-circle" src="{{ asset('img/fondProfil.png') }}">
-		            </div>
-		            <div class="media-body">
-		            	<h4>
+					{% if app.user.id != profil.id %}
+		            <li>
+						<div class="media">
+		            		<div class="media-left align-self-center">
+		               			 <img class="rounded-circle" src="{{ asset('img/fondProfil.png') }}">
+		           			</div>
+		            	<div class="media-body">
+		            		<h4>
 		            			{{ profil.username }}
-		            	</h4>
-		            	<p>
-		            	<br>
-						</p>
-		            </div>
+		            		</h4>
+		            		<p>
+		            			<br>
+							</p>
+		           		</div>
 			            <div class="media-right align-self-center">
 							<a href="{{ path('deleteUser', { id :  profil.id}) }}">
 							<input type="submit" value="Delete" name="Info" class="btn btn-info btn-xs btn-block"></a>
 			            </div>
-		        </div></li>
-		        
+						</div>
+					</li>
+		        	{% endif %}
 		        {% endfor %}
 	        
 	        </ul>
