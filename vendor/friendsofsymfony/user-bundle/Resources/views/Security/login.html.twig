@@ -1,0 +1,39 @@
+
+{% block fos_user_content %}
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Community{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/Logo.svg') }}" />
+    </head>
+
+    {% block body %}
+
+        <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+            <div class="w3-display-topleft w3-padding-large w3-xlarge">
+                Logo
+            </div>
+            <div class="w3-display-middle">
+                <h1 class="w3-jumbo w3-animate-top">COMMUNITY</h1>
+                <hr class="w3-border-grey" >
+                <span>
+                {{ include('@FOSUser/Security/login_content.html.twig') }}
+                </span>
+                <hr>
+                <a href="{{ path('user_registration') }}">
+                    <div class="w3-large w3-center"><button type="button" class="btn btn-primary">Inscription</button></div>
+                </a>
+            </div>
+        </div>
+
+    {% endblock %}
+
+    {% block stylesheets %}
+
+        <link href="{{ asset('css/bootstrapAccueil.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/W3C.css') }}" rel="stylesheet">
+
+
+    {% endblock %}
+
+{% endblock fos_user_content %}
