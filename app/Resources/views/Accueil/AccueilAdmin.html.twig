@@ -1,0 +1,49 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+{% if ajoutEvent != '' %}
+	<div class="alert alert-dismissible alert-info">
+	  <strong>Great !</strong> {{ajoutEvent}}
+	</div>
+{% endif %}
+<div class="jumbotron">
+  <h1 class="display-4">{{ 'title.allEvents'|trans }} teeeeeeeeeeeeest</h1>
+  <p class="lead">{{ 'description.allEvents'|trans }}</p>
+  <hr class="my-4">
+</div>
+
+<section class="row-section">
+    <div class="container">
+	    <div class="col-md-10 offset-md-1 row-block">
+	        <ul id="sortable">
+				{% for profil in profils %}
+		            <li><div class="media">
+		            <div class="media-left align-self-center">
+		                <img class="rounded-circle" src="{{ asset('img/fondProfil.png') }}">
+		            </div>
+		            <div class="media-body">
+		            	<h4>
+		            			{{ profil.username }}
+		            	</h4>
+		            	<p>
+		            	<br>
+						</p>
+		            </div>
+			            <div class="media-right align-self-center">
+							<a href="{{ path('deleteUser', { id :  profil.id}) }}">
+							<input type="submit" value="Delete" name="Info" class="btn btn-info btn-xs btn-block"></a>
+			            </div>
+		        </div></li>
+		        
+		        {% endfor %}
+	        
+	        </ul>
+	    </div>
+</div>
+</section>
+
+{% endblock %}
+
+{% block stylesheets %}
+	  	<link href="{{ asset('css/Events.css') }}" rel="stylesheet">
+{% endblock %}

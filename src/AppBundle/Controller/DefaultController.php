@@ -15,8 +15,14 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [   
-        ]);
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+            return $this->redirectToRoute('/admin/{_locale}/accueil');
+        } else if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+            return $this->redirectToRoute('/user/{_locale}/accueil');
+        } else {
+            return $this->render('default/index.html.twig', [
+            ]);
+        }
     }
     
 
@@ -26,13 +32,14 @@ class DefaultController extends Controller
 
     public function accueil(Request $request){
         return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '']);
+
     }
 
     /**
-     * @Route("/admin/{_locale}/accueil")
+     * @Route("/admin/{_locale}/accueil", name="accueilAdmin")
      */
-    public function admin()
+    public function accueiladmin()
     {
-        return new Response('<html><body>Admin page!</body></html>');
+       return $this->render('Accueil/AccueilAdmin.html.twig', ['ajoutEvent' => '']);
     }
 }

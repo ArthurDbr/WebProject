@@ -27,9 +27,10 @@ security:
             pattern: ^/
             form_login:
                 login_path: fos_user_security_login
+                check_path: /login_check
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-                always_use_default_target_path : true
+                always_use_default_target_path : false
                 default_target_path: /user/{_locale}/accueil
                 use_referer : true
 
@@ -41,4 +42,3 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/user/, role: ROLE_USER }

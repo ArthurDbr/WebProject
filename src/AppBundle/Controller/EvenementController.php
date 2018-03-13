@@ -37,6 +37,15 @@ class EvenementController extends Controller{
     }
 
     /**
+     * @Route("/show", name="showAllEvenement")
+     */
+    public function showAllEvent(Request $request){
+        $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
+        $evenement = $repository1->findAll();
+        return $this->render('Evenement/ShowAllEventAdmin.html.twig', ['evenement' => $evenement]);
+    }
+
+    /**
     * @Route("/show/{id}", requirements={"id":"\d+"}, name="showEvenement")
     */
     public function showEvent(Request $request, Evenement $event){
@@ -86,14 +95,26 @@ class EvenementController extends Controller{
     }
 
     /**
-    * @Route("/delete/{id}", requirements={"id":"\d+"}, name="deleteEvenement")
-    */
+     * @Route("/delete/{id}", requirements={"id":"\d+"}, name="deleteEvenement")
+     */
     public function deleteEvent(Request $request, Evenement $event){
         $em = $this->getDoctrine()->getManager();
         $em->remove($event);
         $em->flush();
 
-        return $this->redirectToRoute('showEvenement');
+        return $this->redirectToRoute('MyEvent');
+    }
+
+
+    /**
+    * @Route("/delete/{id}", requirements={"id":"\d+"}, name="deleteAllEvenement")
+    */
+    public function deleteAllEvent(Request $request, Evenement $event){
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($event);
+        $em->flush();
+
+        return $this->redirectToRoute('MyEvent');
     }
 
     /**
@@ -102,7 +123,10 @@ class EvenementController extends Controller{
     * @throws \LogicException
     */
     public function createEvent(Request $request){
-        return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '']);
+        return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '',
+                                                                    'types' => array( 'Select a categorie','Party', 'Study', 'Théatre', 'Cinema', 'Restaurant', 'Sport'),
+                                                                     'categorie' => 0,
+        ]);
     }
 
     /**
@@ -115,8 +139,16 @@ class EvenementController extends Controller{
         $evenement = new Evenement();
         $userId = $this->getUser()->getId();
 
-        if( $_POST['Categorie'] == '0' || !isset($_POST['Lieu']) || !isset($_POST['Description'])){
-            return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => 'You need to provide all the fields']);   
+        if( ($_POST['Categorie'] == '0') || empty($_POST['Lieu']) || empty($_POST['Description'])|| empty($_POST['date']) || empty($_POST['heure'])){
+            return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => 'You need to provide all the fields',
+                                                                        'categorie' => $_POST['Categorie'],
+                                                                        'description' => $_POST['Description'],
+                                                                        'lieu' => $_POST['Lieu'],
+                                                                        'date' => $_POST['date'],
+                                                                        'heure' => $_POST['heure'],
+                                                                        'types' => array( 'Select a categorie','Party', 'Study', 'Théatre', 'Cinema', 'Restaurant', 'Sport'),
+
+            ]);
         }else{
             $lieu = addcslashes($_POST['Lieu'], '\'%_');
             $descri = addcslashes($_POST['Description'], '\'%_"/');

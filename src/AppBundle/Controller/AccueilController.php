@@ -20,14 +20,31 @@ class AccueilController extends Controller{
     */
 
     public function indexAction(Request $request){
-        $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
-        $repository2 = $this->getDoctrine()->getRepository(Users::class);
-        $evenement = $repository1->findAll();
-        $profil = $repository2->findAll();
-    	return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '',
-                                                            'evenement' => $evenement, 
-                                                            'profils'=> $profil ]);
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+            $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
+            $repository2 = $this->getDoctrine()->getRepository(Users::class);
+            $evenement = $repository1->findAll();
+            $profil = $repository2->findAll();
+            return $this->render('Accueil/AccueilAdmin.html.twig', ['ajoutEvent' => '',
+                'evenement' => $evenement,
+                'profils'=> $profil ]);
+
+        } else if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
+            $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
+            $repository2 = $this->getDoctrine()->getRepository(Users::class);
+            $evenement = $repository1->findAll();
+            $profil = $repository2->findAll();
+            return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '',
+                'evenement' => $evenement,
+                'profils'=> $profil ]);
+
+        } else {
+            return $this->render('default/index.html.twig', [
+            ]);
+        }
+
     }
+
 
     /**
     * @Route("/createEvent", name="event")

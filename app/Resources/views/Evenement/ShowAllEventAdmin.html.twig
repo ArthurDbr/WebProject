@@ -1,0 +1,48 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+<div class="jumbotron">
+  <h1 class="display-4">{{ 'title.allEvents'|trans }} teeeeeeeeeeeeest</h1>
+  <p class="lead">{{ 'description.allEvents'|trans }}</p>
+  <hr class="my-4">
+</div>
+
+<section class="row-section">
+    <div class="container">
+	    <div class="col-md-10 offset-md-1 row-block">
+	        <ul id="sortable">
+				{% for event in evenement %}
+		            <li><div class="media">
+		            <div class="media-left align-self-center">
+		                <img class="rounded-circle" src="{{ asset('img/fondProfil.png') }}">
+		            </div>
+		            <div class="media-body">
+		            	<h4>
+		            			{{ event.description }}
+		            	</h4>
+		            	<p>
+							{{ event.lieu }}
+		            	<br>
+							{{ event.dateEvenement }}
+						<br>
+							{{ event.heureEvenement }}
+						</p>
+		            </div>
+			            <div class="media-right align-self-center">
+							<a href="{{ path('deleteEvenement', { id :  event.id }) }}">
+								<input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm btn-block"></a>
+			            </div>
+		        </div></li>
+		        
+		        {% endfor %}
+	        
+	        </ul>
+	    </div>
+</div>
+</section>
+
+{% endblock %}
+
+{% block stylesheets %}
+	  	<link href="{{ asset('css/Events.css') }}" rel="stylesheet">
+{% endblock %}

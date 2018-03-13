@@ -74,6 +74,17 @@ class ProfilController extends Controller{
         return $this->render('Profil/ModifProfil.html.twig', ['profil' => $profil]);
     }
 
+    /**
+     * @Route("/delete/{id}", requirements={"id":"\d+"}, name="deleteUser")
+     */
+    public function deleteProfil(Request $request, Users $user){
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute('accueil_index');
+    }
+
 
 
 
