@@ -58,8 +58,6 @@ class EvenementController extends Controller{
     */
     public function modifyEvent(Request $request, Evenement $event){
 
-
-
         if( isset($_POST["Categorie"])){
             if ($_POST["modifier"] == "Annuler") {
                 return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $event]);

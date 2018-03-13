@@ -1,13 +1,67 @@
-{% extends 'base.html.twig' %}
-
+<head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Community{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/Logo.svg') }}" />
+</head>
 {% block body %}
-{{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+    <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+      <div class="w3-display-topleft w3-padding-large w3-xlarge">
+        Logo
+      </div>
+      <div class="w3-display-middle">
+        <h1 class="w3-jumbo w3-animate-top">COMMUNITY</h1>
+        <hr class="w3-border-grey" >
+        <table class="form-group">
+        	<tr>
+        		<td>{{ form_start(form) }}</td>
+        	</tr>
+        	<tr >
+        		<td>{{ form_label(form.username) }}</td>
+        		<td>{{ form_widget(form.username) }}</td>
+        		<td>{{ form_errors(form.username) }}</td>
+        	</tr>
+        	<tr>
+        		<td>{{ form_label(form.email) }}</td>
+        		<td>{{ form_widget(form.email) }}</td>
+        		<td>{{ form_errors(form.email) }}</td>
+        	</tr>
+        	<tr>
+        		<td>{{ form_label(form.plainPassword.first) }}</td>
+        		<td>{{ form_widget(form.plainPassword.first) }}</td>
+        		<td>{{ form_errors(form.plainPassword.first) }}</td>
+        	</tr>
+        	<tr>
+        		<td >{{ form_label(form.plainPassword.second) }}</td>
+        		<td>{{ form_widget(form.plainPassword.second) }}</td>
+        		<td>{{ form_errors(form.plainPassword.second) }}</td>
+        	</tr>
+        </table>
 
-    <button type="submit">Register!</button>
-{{ form_end(form) }}
+        <div class="w3-center"> 
+        	<button class="btn btn-primary" type="submit">Register!</button>
+				{{ form_end(form) }}
+		</div>
+		<hr class="w3-border-grey" >
+		<div > 
+			<a href="{{ path('fos_user_security_login') }}">
+                <div class="w3-large w3-center"><button type="button" class="btn btn-primary">Connection</button></div>
+            </a>
+		</div>
+        
+    </div>
 
+        
+
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+
+    <link href="{{ asset('css/United.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/W3C.css') }}" rel="stylesheet">
+
+   
 {% endblock %}
