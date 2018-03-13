@@ -14,8 +14,7 @@
 	        	{% for participe in participantEvenement %}
 	        		
 		        	{% for event in evenement %}
-		        		{% if  ( participe.idEvenement == event.id   and  participe.idPersonne == app.user.id ) or 
-		        			(  app.user.id == event.idPersonne  ) %}
+		        		{% if  ( participe.idEvenement == event.id  ) %}
 
 			            <li><div class="media">
 			            <div class="media-left align-self-center">

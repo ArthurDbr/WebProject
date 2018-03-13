@@ -19,6 +19,7 @@ class Users extends BaseUser
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\ManyToMany(targetEntity="Evenement")
      */
     protected $id;
 
@@ -42,6 +43,15 @@ class Users extends BaseUser
      * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
      */
     protected $prenom;
+
+    /**
+    *@var array
+    *
+    *@ORM\Column(name="listeEvenementParticipant", type="array")
+    *@ORM\Column(type="array", nullable=TRUE)
+    */
+
+    private $listeEvenementParticipant;
 
     /**
      * Get id
@@ -121,6 +131,30 @@ class Users extends BaseUser
     public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get listeEvenementParticipant
+     *
+     * @return array
+     */
+    public function getListeEvenementParticipant()
+    {
+        return $this->listeEvenementParticipant;
+    }
+
+    /**
+     * Set array
+     *
+     * @param string $listeEvenementParticipant
+     *
+     * @return users
+     */
+    public function setListeEvenementParticipant($listeEvenementParticipant)
+    {
+        $this->listeEvenementParticipant = $listeEvenementParticipant;
 
         return $this;
     }

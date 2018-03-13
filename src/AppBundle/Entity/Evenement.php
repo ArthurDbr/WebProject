@@ -19,6 +19,7 @@ class Evenement
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\ManyToMany(targetEntity="Users")
      */
     private $id;
 
@@ -63,6 +64,15 @@ class Evenement
     *@ORM\Column(name="heureEvenement", type="string")
     */
     private $heureEvenement;
+
+    /**
+    *@var array
+    *
+    *@ORM\Column(name="listeUsersParticipant", type="array")
+    *@ORM\Column(type="array", nullable=TRUE)
+    */
+
+    private $listeUsersParticipant;
 
 
     /**
@@ -216,6 +226,30 @@ class Evenement
     public function setHeureEvenement($heureEvenement)
     {
         $this->heureEvenement = $heureEvenement;
+
+        return $this;
+    }
+
+    /**
+     * Get listeUsersParticipant
+     *
+     * @return array
+     */
+    public function getListeUsersParticipant()
+    {
+        return $this->listeUsersParticipant;
+    }
+
+    /**
+     * Set listeUsersParticipant
+     *
+     * @param array $listeUsersParticipant
+     *
+     * @return evenement
+     */
+    public function setListeUsersParticipant($listeUsersParticipant)
+    {
+        $this->listeUsersParticipant = $listeUsersParticipant;
 
         return $this;
     }
