@@ -33,9 +33,17 @@ class EvenementController extends Controller{
         $profil = $this->getUser();
         $participantEvenement = $profil->getListeEvenement();
 
+        $typeEvent = [ 1 => "Party", 
+                    2 => "Study", 
+                    3 => "Theatre", 
+                    4 => "Cinema",
+                    5 => "Restaurant",
+                    6 => "Sport"];
+
         
         return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement, 
                                                                 'profils'=> $profil,
+                                                                'typeEvent' => $typeEvent,
                                                                 'participantEvenement'=> $participantEvenement,]);
     }
 
@@ -45,40 +53,17 @@ class EvenementController extends Controller{
     public function addParticipantEvent(Request $request, Evenement $e){
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository(Evenement::class);
-        $ajoute = false;
         $evenement = $repository->findAll();
         $profil = $this->getUser();
         $participantEvenement = new Users();
-/*        foreach ($evenement as $event) {
-            $participantEvenement = $event->getListeUsersParticipant();
-            var_dump($participantEvenement);
-            foreach ($participantEvenement as $parti ) {
-                if($parti->getId() == $profil->getId()){
-                    $ajoute = true;
-                }
-            }
-
-        }*/  
-        if( $ajoute == false){
             
-            $profil->addListeEvenement($e);
-            $em->persist($profil);
-            $em->flush();
-            $e->addListeUser($profil);
-            $em->persist($e);
-            $em->flush();
-            return $this->redirectToRoute('MyEvent');
-        }/*else{
-            $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
-            $repository2 = $this->getDoctrine()->getRepository(Users::class);
-            $evenement = $repository1->findAll();
-            $profil = $repository2->findAll();
-            return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => 'event already add',
-                                                            'evenement' => $evenement, 
-                                                            'profils'=> $profil,
-                                                            ]);
-        }*/
-
+        $profil->addListeEvenement($e);
+        $em->persist($profil);
+        $em->flush();
+        $e->addListeUser($profil);
+        $em->persist($e);
+        $em->flush();
+        return $this->redirectToRoute('MyEvent');
     }
 
     /**
@@ -102,13 +87,22 @@ class EvenementController extends Controller{
     * @Route("/modify/{id}", requirements={"id":"\d+"}, name="modifyEvenement")
     */
     public function modifyEvent(Request $request, Evenement $event){
+        $typeEvent = [ 1 => "Party", 
+            2 => "Study", 
+            3 => "Theatre", 
+            4 => "Cinema",
+            5 => "Restaurant",
+            6 => "Sport"];
+        $userId = $this->getUser()->getId();
 
         if( isset($_POST["Categorie"])){
             if ($_POST["modifier"] == "Annuler") {
-                return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $event]);
+                return $this->render('Evenement/ShowEvenement.html.twig', [
+                                    'typeEvent' => $typeEvent,
+                                    'event' => $event]);
             }else{
                 $em = $this->getDoctrine()->getManager();
-                $userId = $this->getUser()->getId();
+                
 
                 $lieu = addcslashes($_POST['Lieu'], '\'%_');
                 $descri = addcslashes($_POST['Description'], '\'%_"/');
@@ -130,11 +124,12 @@ class EvenementController extends Controller{
                 // Étape 2 : On « flush » 
                 $em->flush();
 
-                return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => 'Event modify !']);
+                return $this->redirectToRoute('MyEvent/{userId}}');
             }
             
         }
-        return $this->render('Evenement/ModifyEvenement.html.twig', ['event' => $event, 'erreur' => '']);
+
+        return $this->redirectToRoute('modifyEvenement', ['id' => $event->getId()]);
     }
 
     /**
@@ -166,6 +161,7 @@ class EvenementController extends Controller{
     * @throws \LogicException
     */
     public function createEvent(Request $request){
+
         return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '',
                                                                     'types' => array( 'Select a categorie','Party', 'Study', 'Théatre', 'Cinema', 'Restaurant', 'Sport'),
                                                                      'categorie' => 0,
@@ -178,6 +174,13 @@ class EvenementController extends Controller{
     * @throws \LogicException
     */
     public function ajoutEvent(Request $request ){
+
+        $typeEvent = [  1 => "Party", 
+                        2 => "Study", 
+                        3 => "Theatre", 
+                        4 => "Cinema",
+                        5 => "Restaurant",
+                        6 => "Sport"];
         $em = $this->getDoctrine()->getManager();
         $evenement = new Evenement();
         $userId = $this->getUser()->getId();
@@ -190,7 +193,7 @@ class EvenementController extends Controller{
                                                                         'lieu' => $_POST['Lieu'],
                                                                         'date' => $_POST['date'],
                                                                         'heure' => $_POST['heure'],
-                                                                        'types' => array( 'Select a categorie','Party', 'Study', 'Théatre', 'Cinema', 'Restaurant', 'Sport'),
+                                                                        'types' => $typeEvent,
 
             ]);
         }else{

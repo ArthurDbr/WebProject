@@ -20,6 +20,12 @@ class AccueilController extends Controller{
     */
 
     public function indexAction(Request $request){
+        $typeEvent = [ 1 => "Party", 
+            2 => "Study", 
+            3 => "Theatre", 
+            4 => "Cinema",
+            5 => "Restaurant",
+            6 => "Sport"];
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
             $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
             $repository2 = $this->getDoctrine()->getRepository(Users::class);
@@ -35,6 +41,7 @@ class AccueilController extends Controller{
             $evenement = $repository1->findAll();
             $profil = $repository2->findAll();
             return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '',
+                'typeEvent' => $typeEvent,
                 'evenement' => $evenement,
                 'profils'=> $profil,
                 ]);

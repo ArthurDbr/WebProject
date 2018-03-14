@@ -25,19 +25,7 @@
 	   			<td>
 				    <select name="Categorie" class="custom-select">
 				      <option  value="{{event.idTypeEvenement}}" selected="">
-				      		{% if event.idTypeEvenement == 1 %}
-			   					Party
-			   				{% elseif event.idTypeEvenement == 2 %}
-			   					Study
-			   				{% elseif event.idTypeEvenement == 3 %}
-			   					Theatre
-			   				{% elseif event.idTypeEvenement == 4 %}
-			   					Cinema
-			   				{% elseif event.idTypeEvenement == 5 %}
-			   					Restaurent
-			   				{% elseif event.idTypeEvenement == 6 %}
-			   					Sport
-			   				{% endif %}
+				      		{{ typeEvent[event.idTypeEvenement] }}
 				      </option>
 				      <option  value="1">Party</option>
 				      <option  value="2">Study</option>

@@ -22,17 +22,8 @@
 	   			<td  >Category : </td>
 	   			<td>
 				    <select name="Categorie" class="custom-select">
-				      {#<option  value="0" selected>Select a categorie</option>#}
-				      {#<option  value="1">Party</option>#}
-				      {#<option  value="2">Study</option>#}
-				      {#<option  value="3">Theatre</option>#}
-				      {#<option  value="4">Cinema</option>#}
-				      {#<option  value="5">Restaurent</option>#}
-				      {#<option  value="6">Sport</option>#}
-						{% set i = 0 %}
-						{% for type in types %}
-							<option  value={{ i }} {% if categorie == i %} selected {% endif %}>{{ type }}</option>
-							{% set i = i+1 %}
+						{% for key,type in types %}
+							<option  value={{ key }} {% if categorie == key %} selected {% endif %}>{{ type }}</option>
 						{% endfor %}
 				    </select>
 	   			</td>

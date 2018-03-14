@@ -25,20 +25,9 @@
 			            	</h4>
 			            	<p>
 			            	<i> 
-			            		{% if event.idTypeEvenement == 1 %}
-				   					Party
-				   				{% elseif event.idTypeEvenement == 2 %}
-				   					Study
-				   				{% elseif event.idTypeEvenement == 3 %}
-				   					Theatre
-				   				{% elseif event.idTypeEvenement == 4 %}
-				   					Cinema
-				   				{% elseif event.idTypeEvenement == 5 %}
-				   					Restaurent
-				   				{% elseif event.idTypeEvenement == 6 %}
-				   					Sport
-				   				{% endif %}
-				   			</i><br>
+			            		{{ typeEvent[event.idTypeEvenement] }}
+				   			</i>
+				   			<br>
 			                {{ event.dateEvenement }}</p>
 			            </div>
 			            <div class="media-right align-self-center">
