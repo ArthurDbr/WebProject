@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+
 /**
  * Evenement
  *
@@ -17,9 +18,9 @@ class Evenement
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\ManyToMany(targetEntity="Users")
+     * @ORM\Id
+
      */
     private $id;
 
@@ -66,13 +67,13 @@ class Evenement
     private $heureEvenement;
 
     /**
-    *@var array
     *
-    *@ORM\Column(name="listeUsersParticipant", type="array")
-    *@ORM\Column(type="array", nullable=TRUE)
+    *@ORM\OneToMany(targetEntity="AppBundle\Entity\Users", mappedBy="Evenement" )
+    *@ORM\Column(name="listeUsers", type="array", nullable=true)
     */
 
-    private $listeUsersParticipant;
+    private $listeUsers;
+
 
 
     /**
@@ -230,28 +231,39 @@ class Evenement
         return $this;
     }
 
-    /**
-     * Get listeUsersParticipant
-     *
-     * @return array
-     */
-    public function getListeUsersParticipant()
-    {
-        return $this->listeUsersParticipant;
-    }
+
 
     /**
-     * Set listeUsersParticipant
+     * Add listeUser
      *
-     * @param array $listeUsersParticipant
+     * @param \AppBundle\Entity\Users $listeUser
      *
-     * @return evenement
+     * @return Evenement
      */
-    public function setListeUsersParticipant($listeUsersParticipant)
+    public function addListeUser(\AppBundle\Entity\Users $listeUser)
     {
-        $this->listeUsersParticipant = $listeUsersParticipant;
+        $this->listeUsers[] = $listeUser;
 
         return $this;
     }
 
+    /**
+     * Remove listeUser
+     *
+     * @param \AppBundle\Entity\Users $listeUser
+     */
+    public function removeListeUser(\AppBundle\Entity\Users $listeUser)
+    {
+        $this->listeUsers->removeElement($listeUser);
+    }
+
+    /**
+     * Get listeUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getListeUsers()
+    {
+        return $this->listeUsers;
+    }
 }

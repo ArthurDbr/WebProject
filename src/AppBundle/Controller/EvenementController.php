@@ -29,55 +29,46 @@ class EvenementController extends Controller{
     */
     public function indexAction(Request $request){
         $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
-        $repository2 = $this->getDoctrine()->getRepository(Users::class);
         $evenement = $repository1->findAll();
-        $ParticipantEvenement = [];
         $profil = $this->getUser();
-        foreach ($evenement as $event) {
-            if($event->getId() == $profil->getId()){
-                $ParticipantEvenement = $event->getListeUsersParticipant();
-            }
-        }
-        var_dump($ParticipantEvenement);
+        $participantEvenement = $profil->getListeEvenement();
+
+        
         return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement, 
-                                                                'profils'=> $this->getUser(),
-                                                                'participantEvenement'=> $ParticipantEvenement,]);
+                                                                'profils'=> $profil,
+                                                                'participantEvenement'=> $participantEvenement,]);
     }
 
     /**
     * @Route("/{id}", requirements={"id":"\d+"}, name="addParticipantEvent")
     */
-    public function AddEvent(Request $request, Evenement $e){
+    public function addParticipantEvent(Request $request, Evenement $e){
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository(Evenement::class);
         $ajoute = false;
         $evenement = $repository->findAll();
         $profil = $this->getUser();
-        $ParticipantEvenement = [];
-        foreach ($evenement as $event) {
-            $allParticipeEvent = $event->getListeUsersParticipant();
-            foreach ($allParticipeEvent as $parti ) {
+        $participantEvenement = new Users();
+/*        foreach ($evenement as $event) {
+            $participantEvenement = $event->getListeUsersParticipant();
+            var_dump($participantEvenement);
+            foreach ($participantEvenement as $parti ) {
                 if($parti->getId() == $profil->getId()){
                     $ajoute = true;
                 }
             }
 
-        }
-
+        }*/  
         if( $ajoute == false){
             
-            $evenement = $repository->findAll();
-            foreach ($evenement as $event) {
-                if($event->getId() == $e->getId()){
-                    $event->setListeUsersParticipant($profil);
-                }
-            }
-
-            $em->persist($event);
-
+            $profil->addListeEvenement($e);
+            $em->persist($profil);
+            $em->flush();
+            $e->addListeUser($profil);
+            $em->persist($e);
             $em->flush();
             return $this->redirectToRoute('MyEvent');
-        }else{
+        }/*else{
             $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
             $repository2 = $this->getDoctrine()->getRepository(Users::class);
             $evenement = $repository1->findAll();
@@ -86,7 +77,7 @@ class EvenementController extends Controller{
                                                             'evenement' => $evenement, 
                                                             'profils'=> $profil,
                                                             ]);
-        }
+        }*/
 
     }
 
@@ -190,6 +181,7 @@ class EvenementController extends Controller{
         $em = $this->getDoctrine()->getManager();
         $evenement = new Evenement();
         $userId = $this->getUser()->getId();
+        $profil = $this->getUser();
 
         if( ($_POST['Categorie'] == '0') || empty($_POST['Lieu']) || empty($_POST['Description'])|| empty($_POST['date']) || empty($_POST['heure'])){
             return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => 'You need to provide all the fields',
@@ -214,11 +206,17 @@ class EvenementController extends Controller{
             $evenement->setIdTypeEvenement($categ);
             $evenement->setDateEvenement($date);
             $evenement->setHeureEvenement($heure);
-            
+            $evenement->addListeUser($profil);
 
             $em->persist($evenement);
 
             $em->flush();
+
+            $profil->addListeEvenement($evenement);
+            $em->persist($profil);
+            $em->flush();
+
+
 
             return $this->redirectToRoute('MyEvent');
         }
