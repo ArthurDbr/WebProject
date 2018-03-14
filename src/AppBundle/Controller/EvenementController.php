@@ -87,7 +87,7 @@ class EvenementController extends Controller{
     * @Route("/modify/{id}", requirements={"id":"\d+"}, name="modifyEvenement")
     */
     public function modifyEvent(Request $request, Evenement $event){
-        $typeEvent = [ 1 => "Party", 
+        $typeEvent = [ 1 => "Party",
             2 => "Study", 
             3 => "Theatre", 
             4 => "Cinema",
@@ -96,11 +96,6 @@ class EvenementController extends Controller{
         $userId = $this->getUser()->getId();
 
         if( isset($_POST["Categorie"])){
-            if ($_POST["modifier"] == "Annuler") {
-                return $this->render('Evenement/ShowEvenement.html.twig', [
-                                    'typeEvent' => $typeEvent,
-                                    'event' => $event]);
-            }else{
                 $em = $this->getDoctrine()->getManager();
                 
 
@@ -124,13 +119,12 @@ class EvenementController extends Controller{
                 // Étape 2 : On « flush » 
                 $em->flush();
 
-                return $this->redirectToRoute('MyEvent/{userId}}');
-            }
+                return $this->redirectToRoute('MyEvent');
+
             
         }
 
-        return $this->redirectToRoute('modifyEvenement', ['id' => $event->getId()]);
-    }
+        return $this->render('Evenement/ModifyEvenement.html.twig', ['event' => $event, 'erreur' => '', 'typeEvent' => $typeEvent]);     }
 
     /**
      * @Route("/delete/{id}", requirements={"id":"\d+"}, name="deleteEvenement")
