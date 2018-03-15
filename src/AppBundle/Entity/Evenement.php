@@ -68,11 +68,12 @@ class Evenement
 
     /**
     *
-    *@ORM\OneToMany(targetEntity="AppBundle\Entity\Users", mappedBy="Evenement" )
-    *@ORM\Column(name="listeUsers", type="array", nullable=true)
+    *@ORM\OneToMany(targetEntity="AppBundle\Entity\Users", mappedBy="Evenement", cascade={"persist", "remove"} )
+    *@ORM\Column(name="listeUsers", type="object", nullable=true)
     */
 
     private $listeUsers;
+
 
 
 
@@ -265,5 +266,19 @@ class Evenement
     public function getListeUsers()
     {
         return $this->listeUsers;
+    }
+
+    /**
+     * Set listeUsers
+     *
+     * @param \stdClass $listeUsers
+     *
+     * @return Evenement
+     */
+    public function setListeUsers($listeUsers)
+    {
+        $this->listeUsers = $listeUsers;
+
+        return $this;
     }
 }

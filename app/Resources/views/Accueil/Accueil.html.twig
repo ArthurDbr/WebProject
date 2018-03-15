@@ -26,7 +26,7 @@
 							<h4>
 							{% for profil in profils %}
 								{% if event.idPersonne == profil.id %}
-									{{ profil.Prenom }}
+									{{ profil.userName }}
 								{% endif %}
 							{% endfor %}
 							</h4>
@@ -37,15 +37,19 @@
 							<br>
 							{{ event.dateEvenement }}
 							</p>
-		           		 </div>
-							<div class="media-right align-self-center">
-								{% if app.user.id != event.idPersonne %}
-									<a href="{{ path('addParticipantEvent', { id :  event.id}) }}">
-									<input type="submit" value="{{ 'participate.event'|trans }}" name="participer" class="btn btn-success btn-xs btn-block"></a>
-									<hr>
-								{% endif %}
-									<a href="{{ path('showEvenement', { id :  event.id}) }}">
-									<input type="submit" value="{{ 'more.event'|trans }}" name="Info" class="btn btn-info btn-xs btn-block"></a>
+						</div>
+						<div class="media-body">
+							</p>
+							<b>{{ event.description }}</b>
+						</div>
+						<div class="media-right align-self-center">
+							{% if app.user.id != event.idPersonne %}
+								<a href="{{ path('addParticipantEvent', { id :  event.id}) }}">
+								<input type="submit" value="{{ 'participate.event'|trans }}" name="participer" class="btn btn-success btn-xs btn-block"></a>
+								<hr>
+							{% endif %}
+								<a href="{{ path('showEvenement', { id :  event.id}) }}">
+								<input type="submit" value="{{ 'more.event'|trans }}" name="Info" class="btn btn-info btn-xs btn-block"></a>
 							</div>
 							</div>
 		        </li>

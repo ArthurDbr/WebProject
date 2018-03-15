@@ -29,9 +29,11 @@ class EvenementController extends Controller{
     */
     public function indexAction(Request $request){
         $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
+        $repository2 = $this->getDoctrine()->getRepository(Users::class);
         $evenement = $repository1->findAll();
-        $profil = $this->getUser();
-        $participantEvenement = $profil->getListeEvenement();
+        $profils = $repository2->findAll();
+        $user = $this->getUser();
+        $participantEvenement = $user->getListeEvenement();
 
         $typeEvent = [ 1 => "Party", 
                     2 => "Study", 
@@ -42,8 +44,9 @@ class EvenementController extends Controller{
 
         
         return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement, 
-                                                                'profils'=> $profil,
+                                                                'profils'=> $profils,
                                                                 'typeEvent' => $typeEvent,
+                                                                'user' => $user,
                                                                 'participantEvenement'=> $participantEvenement,]);
     }
 
@@ -70,17 +73,57 @@ class EvenementController extends Controller{
      * @Route("/show", name="showAllEvenement")
      */
     public function showAllEvent(Request $request){
+        $typeEvent = [ 1 => "Party", 
+            2 => "Study", 
+            3 => "Theatre", 
+            4 => "Cinema",
+            5 => "Restaurant",
+            6 => "Sport"];
         $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
         $evenement = $repository1->findAll();
-        return $this->render('Evenement/ShowAllEventAdmin.html.twig', ['evenement' => $evenement]);
+        return $this->render('Evenement/ShowAllEventAdmin.html.twig', ['evenement' => $evenement,
+                                                                        'typeEvent' => $typeEvent]);
     }
 
     /**
     * @Route("/show/{id}", requirements={"id":"\d+"}, name="showEvenement")
     */
     public function showEvent(Request $request, Evenement $event){
+        $typeEvent = [ 1 => "Party", 
+            2 => "Study", 
+            3 => "Theatre", 
+            4 => "Cinema",
+            5 => "Restaurant",
+            6 => "Sport"];
 
-        return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $event]);
+            return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $event,
+                                                                        'typeEvent' => $typeEvent]);
+    }
+
+    /**
+    * @Route("/unsubscribe/{id}",  requirements={"id":"\d+"}, name="unsubscribe")
+    */
+    public function unsubscribe(Request $request, Evenement $event){
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $event->removeListeUser($user);
+/*        $em->persist($user);
+        $em->flush();
+        $event->removeListeUser($user);
+        $em->persist($user);
+        $em->flush();
+*/
+        var_dump($event);
+        die;
+        $typeEvent = [ 1 => "Party", 
+            2 => "Study", 
+            3 => "Theatre", 
+            4 => "Cinema",
+            5 => "Restaurant",
+            6 => "Sport"];
+
+        return $this->redirectToRoute('MyEvent');
     }
 
     /**

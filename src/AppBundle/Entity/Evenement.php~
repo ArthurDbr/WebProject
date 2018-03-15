@@ -68,14 +68,17 @@ class Evenement
 
     /**
     *
-    *@ORM\OneToMany(targetEntity="AppBundle\Entity\Users", mappedBy="Evenement", )
+    *@ORM\OneToMany(targetEntity="AppBundle\Entity\Users", mappedBy="Evenement", cascade={"persist", "remove"} )
+    *@ORM\Column(name="listeUsers", type="object", nullable=true)
     */
 
     private $listeUsers;
 
-    public function __construct(){
-        $this->listeUsers = new ArrayCollection();
+    public function __contruct()
+    {
+        $this->listeUsers = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
 
 
     /**
@@ -234,4 +237,38 @@ class Evenement
     }
 
 
+
+    /**
+     * Add listeUser
+     *
+     * @param \AppBundle\Entity\Users $listeUser
+     *
+     * @return Evenement
+     */
+    public function addListeUser(\AppBundle\Entity\Users $listeUser)
+    {
+        $this->listeUsers[] = $listeUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove listeUser
+     *
+     * @param \AppBundle\Entity\Users $listeUser
+     */
+    public function removeListeUser(\AppBundle\Entity\Users $listeUser)
+    {
+        $this->listeUsers->removeElement($listeUser);
+    }
+
+    /**
+     * Get listeUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getListeUsers()
+    {
+        return $this->listeUsers;
+    }
 }

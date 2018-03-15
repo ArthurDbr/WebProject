@@ -1,26 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="col-md-4">	
+<br>
+<div class="container">
+<div class="align-item-center">
+<div class="row justify-content-center">	
+	<div class="card border-info col col-12" >
+		<div class="card-header text-center"><b>{{ typeEvent[event.idTypeEvenement] }}</b></div>
+		<div class="card-body">
 		<table class="table table-hover">
-			<tr>
-	   			<td  >Catégorie : </td>
-	   			<td>
-	   				{% if event.idTypeEvenement == 1 %}
-	   					Party
-	   				{% elseif event.idTypeEvenement == 2 %}
-	   					Study
-	   				{% elseif event.idTypeEvenement == 3 %}
-	   					Theatre
-	   				{% elseif event.idTypeEvenement == 4 %}
-	   					Cinema
-	   				{% elseif event.idTypeEvenement == 5 %}
-	   					Restaurent
-	   				{% elseif event.idTypeEvenement == 6 %}
-	   					Sport
-	   				{% endif %}
-	   			</td>
-	   		</tr>
 	    	<tr>
 	    		<td  >Description : </td><td> {{ event.description }}</td>
 	    	</tr>
@@ -33,18 +21,23 @@
 	    	<tr>
 	   			<td>Heure : </td><td> {{ event.heureEvenement }}</td>
 	   		</tr>
+	   		{% if app.user.id == event.idPersonne %}
 	   		<tr>
 	   			<td>
-					{% if app.user.id == event.idPersonne %}
-	   					<a href="{{ path('deleteEvenement', { id :  event.id }) }}"><input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm btn-block"></a>
-					{% endif %}
+					<a href="{{ path('deleteEvenement', { id :  event.id }) }}"><input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm btn-block"></a>
+					
 				</td>
 	   			<td>
 	   				<a href="{{ path('modifyEvenement', { id :  event.id }) }}"><input type="submit" value="Modify" name="modify" class="btn btn-info btn-sm btn-block"></a>
 	   			</td>
 	   		</tr>
+	   		{% endif %}
 	   	</table>
 
+		</div>
+	</div>
+</div>
+</div>
 </div>
 
 {% endblock %}

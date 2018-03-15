@@ -15,54 +15,65 @@
   <strong>Ouuups !</strong> {{ erreur }}
 </div>
 {% endif %}
-<div class="col-md-4">	
-	<form action="{{ path('ajoutEvent') }}"  method="post">
-		<table class="table table-hover">
-			<tr>
-	   			<td  >Category : </td>
-	   			<td>
-				    <select name="Categorie" class="custom-select">
-						{% for key,type in types %}
-							<option  value={{ key }} {% if categorie == key %} selected {% endif %}>{{ type }}</option>
-						{% endfor %}
-				    </select>
-	   			</td>
-	   		</tr>
-	    	<tr>
-	    		<td  >Description : </td><td> <input type="text" name="Description" class="form-control" value={{ description | default('') }}></td>
-	    	</tr>
-	    	<tr>
-	   			<td>Lieu : </td><td><input type="text" name="Lieu" class="form-control" value={{ lieu | default('') }}></td>
-	   		</tr>
-	   		<tr>
-	   			<td>
-	   				Date :
-	   			</td>
-	   			<td>
-  					<input name="date" type="date" class="form-control" value={{ date | default('') }}>
-  				</td>
-	   		</tr>
-	   		<tr>
-	   			<td>
-					Time : 
-				</td>
-				<td>
-					<div class="form-control-wrapper">
-						<input name = "heure" type="text" id="time" class="form-control floating-label" placeholder="" value={{ heure | default('') }}>
-					</div>
+<br>
+<div class="container">
+<div class="align-item-center">
+<div class="row justify-content-center">	
+	<div class="card border-info col col-8" >
+		<div class="card-header text-center"><b>{{ 'nav.create'|trans }}</b></div>
+		<div class="card-body">
 
-  				</td>
-	   		</tr>
-	   		<tr>
-	   			<td>
-	   				<input type="submit" value="AJOUTER" name="ajouter" class="btn btn-primary btn-md btn-block">
-	   			</td>
-	   		</tr>
-	   		<tr>
-	   			<td></td>
-	   		</tr>
-	   	</table>
-	</form>
+			<form action="{{ path('ajoutEvent') }}"  method="post">
+				<table class="table table-hover">
+					<tr>
+			   			<td  >Category : </td>
+			   			<td>
+						    <select name="Categorie" class="custom-select">
+								{% for key,type in types %}
+									<option  value={{ key }} {% if categorie == key %} selected {% endif %}>{{ type }}</option>
+								{% endfor %}
+						    </select>
+			   			</td>
+			   		</tr>
+			    	<tr>
+			    		<td  >Description : </td><td> <input type="text" name="Description" class="form-control" value={{ description | default('') }}></td>
+			    	</tr>
+			    	<tr>
+			   			<td>Lieu : </td><td><input type="text" name="Lieu" class="form-control" value={{ lieu | default('') }}></td>
+			   		</tr>
+			   		<tr>
+			   			<td>
+			   				Date :
+			   			</td>
+			   			<td>
+		  					<input name="date" type="date" class="form-control" value={{ date | default('') }}>
+		  				</td>
+			   		</tr>
+			   		<tr>
+			   			<td>
+							Time : 
+						</td>
+						<td>
+							<div class="form-control-wrapper">
+								<input name = "heure" type="text" id="time" class="form-control floating-label" placeholder="" value={{ heure | default('') }}>
+							</div>
+
+		  				</td>
+			   		</tr>
+			   		<tr>
+			   			<td>
+			   				<input type="submit" value="AJOUTER" name="ajouter" class="btn btn-primary btn-md btn-block">
+			   			</td>
+			   		</tr>
+			   		<tr>
+			   			<td></td>
+			   		</tr>
+			   	</table>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
 </div>
 
 {% endblock %}
