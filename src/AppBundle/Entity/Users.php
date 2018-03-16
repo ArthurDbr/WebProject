@@ -44,14 +44,15 @@ class Users extends BaseUser
     protected $prenom;
 
     /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Evenement", mappedBy="Users", cascade={"persist", "remove"})
-    * @ORM\Column(name="listeEvenement", type="object", nullable=true)
+    * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Evenement", cascade={"persist", "remove"})
     *
     */
 
     private $listeEvenement;
 
-
+    public function __construct(){
+        $this->listeEvenement = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -137,51 +138,5 @@ class Users extends BaseUser
 
 
 
-    /**
-     * Add listeEvenement
-     *
-     * @param \AppBundle\Entity\Evenement $listeEvenement
-     *
-     * @return Users
-     */
-    public function addListeEvenement(\AppBundle\Entity\Evenement $listeEvenement)
-    {
-        $this->listeEvenement[] = $listeEvenement;
-
-        return $this;
-    }
-
-    /**
-     * Remove listeEvenement
-     *
-     * @param \AppBundle\Entity\Evenement $listeEvenement
-     */
-    public function removeListeEvenement(\AppBundle\Entity\Evenement $listeEvenement)
-    {
-        $this->listeEvenement->removeElement($listeEvenement);
-    }
-
-    /**
-     * Get listeEvenement
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getListeEvenement()
-    {
-        return $this->listeEvenement;
-    }
-
-    /**
-     * Set listeEvenement
-     *
-     * @param \stdClass $listeEvenement
-     *
-     * @return Users
-     */
-    public function setListeEvenement($listeEvenement)
-    {
-        $this->listeEvenement = $listeEvenement;
-
-        return $this;
-    }
+    
 }
