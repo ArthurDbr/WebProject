@@ -35,10 +35,8 @@
 	   		</tr>
 	   		<tr>
 	   			<td>
-					{% if app.user.id == event.idPersonne %}
-	   					<a href="{{ path('deleteEvenement', { id :  event.id }) }}"><input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm btn-block"></a>
-					{% endif %}
-				</td>
+	   				<a href="{{ path('deleteEvenement', { id :  event.id }) }}"><input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm btn-block"></a>
+	   			</td>
 	   			<td>
 	   				<a href="{{ path('modifyEvenement', { id :  event.id }) }}"><input type="submit" value="Modify" name="modify" class="btn btn-info btn-sm btn-block"></a>
 	   			</td>

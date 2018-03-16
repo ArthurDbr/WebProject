@@ -36,8 +36,7 @@ class AccueilController extends Controller{
             $profil = $repository2->findAll();
             return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '',
                 'evenement' => $evenement,
-                'profils'=> $profil,
-                ]);
+                'profils'=> $profil ]);
 
         } else {
             return $this->render('default/index.html.twig', [
@@ -77,9 +76,10 @@ class AccueilController extends Controller{
             $em->persist($participantEvenement);
 
             $em->flush();
-            return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $event,
-                                                                    'profils'=> $this->getUser(),
-                                                                   ]);
+
+
+            return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $event, 
+                                                                    'profils'=> $this->getUser()]);
         }else{
             $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
             $repository2 = $this->getDoctrine()->getRepository(Users::class);
@@ -87,8 +87,7 @@ class AccueilController extends Controller{
             $profil = $repository2->findAll();
             return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => 'event already add',
                                                             'evenement' => $evenement, 
-                                                            'profils'=> $profil,
-                                                            ]);
+                                                            'profils'=> $profil ]);
         }
 
     }

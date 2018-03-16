@@ -17,46 +17,42 @@
 	    <div class="col-md-10 offset-md-1 row-block">
 	        <ul id="sortable">
 	        	{% for event in evenement %}
-							<li><div class="media">
-							<div class="media-left align-self-center">
-								<img class="rounded-circle" src="{{ asset('img/fondProfil.png') }}">
-							</div>
-							<div class="media-body">
-								<h4>
-								{% for profil in profils %}
-									{% if event.idPersonne == profil.id %}
-										{{ profil.Prenom }}
-									{% endif %}
-								{% endfor %}
-								</h4>
-								<p>
-								<i>
-									{% if event.idTypeEvenement == 1 %}
-										Party
-									{% elseif event.idTypeEvenement == 2 %}
-										Study
-									{% elseif event.idTypeEvenement == 3 %}
-										Theatre
-									{% elseif event.idTypeEvenement == 4 %}
-										Cinema
-									{% elseif event.idTypeEvenement == 5 %}
-										Restaurent
-									{% elseif event.idTypeEvenement == 6 %}
-										Sport
-									{% endif %}
-								</i><br>
-								{{ event.dateEvenement }}</p>
-							</div>
-								<div class="media-right align-self-center">
-									{% if app.user.id != event.idPersonne %}
-										<a href="{{ path('addParticipantEvent', { id :  event.id}) }}">
-										<input type="submit" value="{{ 'participate.event'|trans }}" name="participer" class="btn btn-success btn-xs btn-block"></a>
-										<hr>
-									{% endif %}
-											<a href="{{ path('showEvenement', { id :  event.id}) }}">
-											<input type="submit" value="{{ 'more.event'|trans }}" name="Info" class="btn btn-info btn-xs btn-block"></a>
-								</div>
-						</div></li>
+		            <li><div class="media">
+		            <div class="media-left align-self-center">
+		                <img class="rounded-circle" src="{{ asset('img/fondProfil.png') }}">
+		            </div>
+		            <div class="media-body">
+		            	<h4>
+		            	{% for profil in profils %}
+		            		{% if event.idPersonne == profil.id %}
+		            			{{ profil.Prenom }}
+		            		{% endif %}
+		            	{% endfor %}
+		            	</h4>
+		            	<p>
+		            	<i> 
+		            		{% if event.idTypeEvenement == 1 %}
+			   					Party
+			   				{% elseif event.idTypeEvenement == 2 %}
+			   					Study
+			   				{% elseif event.idTypeEvenement == 3 %}
+			   					Theatre
+			   				{% elseif event.idTypeEvenement == 4 %}
+			   					Cinema
+			   				{% elseif event.idTypeEvenement == 5 %}
+			   					Restaurent
+			   				{% elseif event.idTypeEvenement == 6 %}
+			   					Sport
+			   				{% endif %}
+			   			</i><br>
+		                {{ event.dateEvenement }}</p>
+		            </div>
+			            <div class="media-right align-self-center">
+			                <a href="{{ path('addParticipantEvent', { id :  event.id}) }}">
+			                <input type="submit" value="Participer" name="Info" class="btn btn-info btn-xs btn-block"></a>
+			            </div>
+		        </div></li>
+		        
 		        {% endfor %}
 	        
 	        </ul>

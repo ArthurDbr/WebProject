@@ -5,5 +5,3 @@ title.allEvents: 'Tous les événements'
 description.allEvents: 'Ici vous voyez tous les événements'
 title.myEvents: 'Mes événements personnel'
 description.myEvents: 'Ici vous pouvez voir vos événements créés ou ceux auxquels vous participez'
-more.event: "Plus d'info"
-participate.event: "Participer"
