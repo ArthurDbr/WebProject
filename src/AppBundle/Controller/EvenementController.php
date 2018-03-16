@@ -32,7 +32,7 @@ class EvenementController extends Controller{
         $repository2 = $this->getDoctrine()->getRepository(ParticipantEvenement::class);
         $evenement = $repository1->findAll();
         $ParticipantEvenement = $repository2->findAll();
-        return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement, 
+        return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement,
                                                                 'participantEvenement'=> $ParticipantEvenement,]);
     }
 
@@ -84,12 +84,12 @@ class EvenementController extends Controller{
                 // Étape 1 : On « persiste » l'entité
                 $em->persist($event);
 
-                // Étape 2 : On « flush » 
+                // Étape 2 : On « flush »
                 $em->flush();
 
                 return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => 'Event modify !']);
             }
-            
+
         }
         return $this->render('Evenement/ModifyEvenement.html.twig', ['event' => $event, 'erreur' => '']);
     }
@@ -162,7 +162,7 @@ class EvenementController extends Controller{
             $evenement->setIdTypeEvenement($categ);
             $evenement->setDateEvenement($date);
             $evenement->setHeureEvenement($heure);
-            
+
 
             $em->persist($evenement);
 
@@ -172,6 +172,31 @@ class EvenementController extends Controller{
         }
     }
 
+    /**
+     * @Route("/search", name="RechercherEvenement")
+     */
+    public function searchAction(Request $request)
+    {
+        $event = new Evenement();
+        $form = $this->createForm(SearchType::class, $event);
+
+        // 2) handle the submit (will only happen on POST)
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $evenements = $this->getDoctrine()->getRepository(Evenement::class)->findBy(
+                ['description' => '$event->getDescription()']
+              );
+
+              if (!$evenements) {
+                throw $this->createNotFoundException(
+                  'No event found for this description'
+                );
+              }
+
+              return $this->render('Evenement/searchEvenement.html.twig', ['evenement' => $evenements]);
+      }
+    }
 
 
 }
