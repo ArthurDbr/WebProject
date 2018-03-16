@@ -37,9 +37,10 @@ class DefaultController extends Controller
             $repository2 = $this->getDoctrine()->getRepository(Users::class);
             $evenement = $repository1->findAll();
             $profil = $repository2->findAll();
-            return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '',
+        return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '',
                 'evenement' => $evenement,
-                'profils'=> $profil ]);
+                'profils'=> $profil,
+                ]);
 
     }
 
