@@ -10,12 +10,13 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Users;
 use AppBundle\Form\EvenementType;
+use AppBunde\Form\SearchType;
 use AppBundle\Entity\ParticipantEvenement;
 
 /**
@@ -178,7 +179,9 @@ class EvenementController extends Controller{
     public function searchAction(Request $request)
     {
         $event = new Evenement();
-        $form = $this->createForm(SearchType::class, $event);
+        $form = $this->createFormBuilder($event)
+            ->add('description', TextType::class)
+            ->getForm();
 
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
@@ -193,9 +196,11 @@ class EvenementController extends Controller{
                   'No event found for this description'
                 );
               }
+              return $this->render('Evenement/ShowAllEventAdmin.html.twig', ['evenement' => $evenements]);
 
-              return $this->render('Evenement/searchEvenement.html.twig', ['evenement' => $evenements]);
-      }
+            }
+            return $this->render('Evenement/ShowAllEventAdmin.html.twig', array(
+              'form' => $form->createView()));
     }
 
 
