@@ -63,9 +63,6 @@ class EvenementController extends Controller{
         $profil->addListeEvenement($e);
         $em->persist($profil);
         $em->flush();
-        $e->addListeUser($profil);
-        $em->persist($e);
-        $em->flush();
         return $this->redirectToRoute('MyEvent');
     }
 
@@ -107,15 +104,13 @@ class EvenementController extends Controller{
 
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $event->removeListeUser($user);
-/*        $em->persist($user);
-        $em->flush();
-        $event->removeListeUser($user);
+        $user->removeListeEvenement($event);
         $em->persist($user);
         $em->flush();
-*/
-        var_dump($event);
-        die;
+/*        $event->removeListeUser($user);
+        $em->persist($user);
+        $em->flush();*/
+
         $typeEvent = [ 1 => "Party", 
             2 => "Study", 
             3 => "Theatre", 
@@ -246,7 +241,6 @@ class EvenementController extends Controller{
             $evenement->setIdTypeEvenement($categ);
             $evenement->setDateEvenement($date);
             $evenement->setHeureEvenement($heure);
-            $evenement->addListeUser($profil);
 
             $em->persist($evenement);
 

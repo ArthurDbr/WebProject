@@ -139,4 +139,38 @@ class Users extends BaseUser
 
 
     
+
+    /**
+     * Add listeEvenement
+     *
+     * @param \AppBundle\Entity\Evenement $listeEvenement
+     *
+     * @return Users
+     */
+    public function addListeEvenement(\AppBundle\Entity\Evenement $listeEvenement)
+    {
+        $this->listeEvenement[] = $listeEvenement;
+
+        return $this;
+    }
+
+    /**
+     * Remove listeEvenement
+     *
+     * @param \AppBundle\Entity\Evenement $listeEvenement
+     */
+    public function removeListeEvenement(\AppBundle\Entity\Evenement $listeEvenement)
+    {
+        $this->listeEvenement->removeElement($listeEvenement);
+    }
+
+    /**
+     * Get listeEvenement
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getListeEvenement()
+    {
+        return $this->listeEvenement;
+    }
 }
