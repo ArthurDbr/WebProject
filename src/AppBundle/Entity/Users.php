@@ -44,6 +44,12 @@ class Users extends BaseUser
     protected $prenom;
 
     /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Evenement", cascade={"persist"})
+     */
+
+    protected $evenement;
+
+    /**
      * Get id
      *
      * @return int
@@ -124,7 +130,6 @@ class Users extends BaseUser
 
         return $this;
     }
-
 
 
 }
