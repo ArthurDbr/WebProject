@@ -199,7 +199,7 @@ class EvenementController extends Controller{
               return $this->render('Evenement/ShowAllEventAdmin.html.twig', ['evenement' => $evenements]);
 
             }
-            return $this->render('Evenement/ShowAllEventAdmin.html.twig', array(
+            return $this->render('base.html.twig', array(
               'form' => $form->createView()));
     }
 
