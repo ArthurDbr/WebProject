@@ -44,6 +44,13 @@ class Users extends BaseUser
     protected $prenom;
 
     /**
+     * @var theme
+     *
+     * @ORM\Column(name="theme", type="string", length=255, nullable=true)
+     */
+    protected $theme = 'United';
+
+    /**
     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Evenement", cascade={"persist", "remove"})
     *
     */
@@ -172,5 +179,29 @@ class Users extends BaseUser
     public function getListeEvenement()
     {
         return $this->listeEvenement;
+    }
+
+    /**
+     * Set theme
+     *
+     * @param string $theme
+     *
+     * @return Users
+     */
+    public function setTheme($theme)
+    {
+        $this->theme = $theme;
+
+        return $this;
+    }
+
+    /**
+     * Get theme
+     *
+     * @return string
+     */
+    public function getTheme()
+    {
+        return $this->theme;
     }
 }

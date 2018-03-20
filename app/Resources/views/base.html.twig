@@ -5,7 +5,7 @@
         <title>{% block title %}Community{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('img/Logo.svg') }}" />
-        <link href="{{ asset('css/Flatly.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/'~ app.user.theme ~'.css') }}" rel="stylesheet">
         <link href="{{ asset('css/Accueil.css') }}" rel="stylesheet">
         <script src="{{ asset('js/bootstrap.js') }}" type="text/javascript"></script>
         <script src="{{asset('js/jquery.min.js')}}" ></script>
