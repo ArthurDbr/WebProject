@@ -44,14 +44,15 @@ class Users extends BaseUser
     protected $prenom;
 
     /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Evenement", mappedBy="Users", cascade={"persist", "remove"})
-    * @ORM\Column(name="listeEvenement", type="object", nullable=true)
+    * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Evenement", cascade={"persist", "remove"})
     *
     */
 
     private $listeEvenement;
 
-
+    public function __construct(){
+        $this->listeEvenement = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -137,6 +138,8 @@ class Users extends BaseUser
 
 
 
+    
+
     /**
      * Add listeEvenement
      *
@@ -169,19 +172,5 @@ class Users extends BaseUser
     public function getListeEvenement()
     {
         return $this->listeEvenement;
-    }
-
-    /**
-     * Set listeEvenement
-     *
-     * @param \stdClass $listeEvenement
-     *
-     * @return Users
-     */
-    public function setListeEvenement($listeEvenement)
-    {
-        $this->listeEvenement = $listeEvenement;
-
-        return $this;
     }
 }

@@ -66,14 +66,6 @@ class Evenement
     */
     private $heureEvenement;
 
-    /**
-    *
-    *@ORM\OneToMany(targetEntity="AppBundle\Entity\Users", mappedBy="Evenement", cascade={"persist", "remove"} )
-    *@ORM\Column(name="listeUsers", type="object", nullable=true)
-    */
-
-    private $listeUsers;
-
 
 
 
@@ -228,56 +220,6 @@ class Evenement
     public function setHeureEvenement($heureEvenement)
     {
         $this->heureEvenement = $heureEvenement;
-
-        return $this;
-    }
-
-
-
-    /**
-     * Add listeUser
-     *
-     * @param \AppBundle\Entity\Users $listeUser
-     *
-     * @return Evenement
-     */
-    public function addListeUser(\AppBundle\Entity\Users $listeUser)
-    {
-        $this->listeUsers[] = $listeUser;
-
-        return $this;
-    }
-
-    /**
-     * Remove listeUser
-     *
-     * @param \AppBundle\Entity\Users $listeUser
-     */
-    public function removeListeUser(\AppBundle\Entity\Users $listeUser)
-    {
-        $this->listeUsers->removeElement($listeUser);
-    }
-
-    /**
-     * Get listeUsers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getListeUsers()
-    {
-        return $this->listeUsers;
-    }
-
-    /**
-     * Set listeUsers
-     *
-     * @param \stdClass $listeUsers
-     *
-     * @return Evenement
-     */
-    public function setListeUsers($listeUsers)
-    {
-        $this->listeUsers = $listeUsers;
 
         return $this;
     }

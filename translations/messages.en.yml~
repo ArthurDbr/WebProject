@@ -8,3 +8,7 @@ description.myEvents: 'Here you can see the events you''ve created or the events
 bouton.eventAccueil: participe
 nav.event: __nav.event
 nav.account: __nav.account
+bouton.Deconnexion: 'Logged Out'
+more.event: 'More info'
+participate.event: Participate
+unsubscribe.event: __unsubscribe.event

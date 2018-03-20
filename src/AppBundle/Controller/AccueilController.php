@@ -40,6 +40,7 @@ class AccueilController extends Controller{
             $repository2 = $this->getDoctrine()->getRepository(Users::class);
             $evenement = $repository1->findAll();
             $profil = $repository2->findAll();
+            
             return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '',
                 'typeEvent' => $typeEvent,
                 'evenement' => $evenement,
