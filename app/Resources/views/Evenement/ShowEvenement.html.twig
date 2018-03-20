@@ -24,10 +24,15 @@
 	   		{% if app.user.id == event.idPersonne %}
 	   		<tr>
 	   			<td>
+<<<<<<< HEAD
 					<a href="{{ path('deleteEvenement', { id :  event.id }) }}"><input type="submit" 
 					value="{{ 'delete.event'|trans }}" name="delete" class="btn btn-danger btn-sm btn-block"></a>
 					
 				</td>
+=======
+	   				<a href="{{ path('deleteEvenement', { id :  event.id }) }}"><input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm btn-block"></a>
+	   			</td>
+>>>>>>> meilleur-requetes-barre-de-recherche
 	   			<td>
 	   				<a href="{{ path('modifyEvenement', { id :  event.id }) }}"><input type="submit" value="Modify" name="{{ 'modify.event'|trans }}" class="btn btn-info btn-sm btn-block"></a>
 	   			</td>

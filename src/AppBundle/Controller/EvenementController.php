@@ -10,12 +10,14 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Users;
 use AppBundle\Form\EvenementType;
+use AppBunde\Form\SearchType;
+use AppBundle\Entity\ParticipantEvenement;
 
 
 /**
@@ -31,19 +33,20 @@ class EvenementController extends Controller{
         $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
         $repository2 = $this->getDoctrine()->getRepository(Users::class);
         $evenement = $repository1->findAll();
+
         $profils = $repository2->findAll();
         $user = $this->getUser();
         $participantEvenement = $user->getListeEvenement();
 
-        $typeEvent = [ 1 => "Party", 
-                    2 => "Study", 
-                    3 => "Theatre", 
+        $typeEvent = [ 1 => "Party",
+                    2 => "Study",
+                    3 => "Theatre",
                     4 => "Cinema",
                     5 => "Restaurant",
                     6 => "Sport"];
 
-        
-        return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement, 
+
+        return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement,
                                                                 'profils'=> $profils,
                                                                 'typeEvent' => $typeEvent,
                                                                 'user' => $user,
@@ -59,7 +62,7 @@ class EvenementController extends Controller{
         $evenement = $repository->findAll();
         $profil = $this->getUser();
         $participantEvenement = new Users();
-            
+
         $profil->addListeEvenement($e);
         $em->persist($profil);
         $em->flush();
@@ -70,9 +73,9 @@ class EvenementController extends Controller{
      * @Route("/show", name="showAllEvenement")
      */
     public function showAllEvent(Request $request){
-        $typeEvent = [ 1 => "Party", 
-            2 => "Study", 
-            3 => "Theatre", 
+        $typeEvent = [ 1 => "Party",
+            2 => "Study",
+            3 => "Theatre",
             4 => "Cinema",
             5 => "Restaurant",
             6 => "Sport"];
@@ -88,10 +91,10 @@ class EvenementController extends Controller{
     public function showEvent(Request $request, Evenement $event){
         $repository = $this->getDoctrine()->getRepository(Users::class);
         $users = $repository->findAll();
-        
-        $typeEvent = [ 1 => "Party", 
-            2 => "Study", 
-            3 => "Theatre", 
+
+        $typeEvent = [ 1 => "Party",
+            2 => "Study",
+            3 => "Theatre",
             4 => "Cinema",
             5 => "Restaurant",
             6 => "Sport"];
@@ -115,9 +118,9 @@ class EvenementController extends Controller{
         $em->persist($user);
         $em->flush();*/
 
-        $typeEvent = [ 1 => "Party", 
-            2 => "Study", 
-            3 => "Theatre", 
+        $typeEvent = [ 1 => "Party",
+            2 => "Study",
+            3 => "Theatre",
             4 => "Cinema",
             5 => "Restaurant",
             6 => "Sport"];
@@ -130,8 +133,8 @@ class EvenementController extends Controller{
     */
     public function modifyEvent(Request $request, Evenement $event){
         $typeEvent = [ 1 => "Party",
-            2 => "Study", 
-            3 => "Theatre", 
+            2 => "Study",
+            3 => "Theatre",
             4 => "Cinema",
             5 => "Restaurant",
             6 => "Sport"];
@@ -139,7 +142,7 @@ class EvenementController extends Controller{
 
         if( isset($_POST["Categorie"])){
                 $em = $this->getDoctrine()->getManager();
-                
+
 
                 $lieu = addcslashes($_POST['Lieu'], '\'%_');
                 $descri = addcslashes($_POST['Description'], '\'%_"/');
@@ -158,12 +161,14 @@ class EvenementController extends Controller{
                 // Étape 1 : On « persiste » l'entité
                 $em->persist($event);
 
-                // Étape 2 : On « flush » 
+                // Étape 2 : On « flush »
                 $em->flush();
+
 
                 return $this->redirectToRoute('MyEvent');
 
-            
+            }
+
         }
 
         return $this->render('Evenement/ModifyEvenement.html.twig', ['event' => $event, 'erreur' => '', 'typeEvent' => $typeEvent]);     }
@@ -211,9 +216,9 @@ class EvenementController extends Controller{
     */
     public function ajoutEvent(Request $request ){
 
-        $typeEvent = [  1 => "Party", 
-                        2 => "Study", 
-                        3 => "Theatre", 
+        $typeEvent = [  1 => "Party",
+                        2 => "Study",
+                        3 => "Theatre",
                         4 => "Cinema",
                         5 => "Restaurant",
                         6 => "Sport"];
@@ -260,6 +265,35 @@ class EvenementController extends Controller{
         }
     }
 
+    /**
+     * @Route("/search", name="RechercherEvenement")
+     */
+    public function searchAction(Request $request)
+    {
+        $event = new Evenement();
+        $form = $this->createFormBuilder($event)
+            ->add('description', TextType::class)
+            ->getForm();
+
+        // 2) handle the submit (will only happen on POST)
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $evenements = $this->getDoctrine()->getRepository(Evenement::class)->findBy(
+                ['description' => $event->getDescription()]
+              );
+
+              if (!$evenements) {
+                throw $this->createNotFoundException(
+                  'No event found for this description'
+                );
+              }
+              return $this->render('Evenement/ShowAllEventAdmin.html.twig', ['evenement' => $evenements]);
+
+            }
+            return $this->render('base.html.twig', array(
+              'form' => $form->createView()));
+    }
 
 
 }

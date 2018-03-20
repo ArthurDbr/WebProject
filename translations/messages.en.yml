@@ -4,6 +4,7 @@ nav.profil: 'My Profil'
 title.allEvents: 'All the events'
 description.allEvents: 'Here you can see all the events'
 title.myEvents: 'My events'
+<<<<<<< HEAD
 description.myEvents: 'Here you can see the events you''ve created or the events you''ll participate'
 bouton.eventAccueil: 'Participe'
 nav.event: 'Event'
@@ -14,3 +15,6 @@ participate.event: Participate
 unsubscribe.event: 'Unsubscribe'
 delete.event: 'Delete'
 modify.event: 'Modify'
+=======
+description.myEvents: "Here you can see the events you've created or the events you'll participate"
+>>>>>>> meilleur-requetes-barre-de-recherche

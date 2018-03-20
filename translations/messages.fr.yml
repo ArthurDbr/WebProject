@@ -5,6 +5,7 @@ title.allEvents: 'Tous les événements'
 description.allEvents: 'Ici vous voyez tous les événements'
 title.myEvents: 'Mes événements personnel'
 description.myEvents: 'Ici vous pouvez voir vos événements créés ou ceux auxquels vous participez'
+<<<<<<< HEAD
 bouton.eventAccueil: 'Participer'
 nav.event: 'Evénements'
 nav.account: 'Compte'
@@ -14,3 +15,5 @@ participate.event: Participer
 unsubscribe.event: 'Désinscription'
 delete.event: 'Supprimer'
 modify.event: 'Modifier'
+=======
+>>>>>>> meilleur-requetes-barre-de-recherche
