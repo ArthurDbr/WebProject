@@ -25,15 +25,20 @@ class ProfilController extends Controller{
     }
 
     /**
-    * @Route("/", name="modifTemplate")
+    * @Route("/template", name="ModifTemplate")
     * @return \Symfony\Component\httpFoundation\Response
     * @throws \LogicException
     */
     public function changerTheme(Request $request){
-        $template = 'United';
+        $profil = $this->getUser();
+        $profil->setTemplate($_POST['template']);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($profil);
+        $em->flush();
         
         return $this->render('Profil/ShowProfil.html.twig', ['profil' => $profil,
-                                                            'Modifprofil' => '']);
+                                                            'Modifprofil' => 'Template Modify']);
         
     }
 

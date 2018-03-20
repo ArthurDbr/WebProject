@@ -44,6 +44,13 @@ class Users extends BaseUser
     protected $prenom;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="template", type="string", length=255, nullable=true)
+     */
+    protected $template;
+
+    /**
     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Evenement", cascade={"persist", "remove"})
     *
     */

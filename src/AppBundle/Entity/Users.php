@@ -44,6 +44,13 @@ class Users extends BaseUser
     protected $prenom;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="template", type="string", length=255, nullable=true)
+     */
+    protected $template;
+
+    /**
     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Evenement", cascade={"persist", "remove"})
     *
     */
@@ -172,5 +179,29 @@ class Users extends BaseUser
     public function getListeEvenement()
     {
         return $this->listeEvenement;
+    }
+
+    /**
+     * Set template
+     *
+     * @param string $template
+     *
+     * @return Users
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+
+        return $this;
+    }
+
+    /**
+     * Get template
+     *
+     * @return string
+     */
+    public function getTemplate()
+    {
+        return $this->template;
     }
 }

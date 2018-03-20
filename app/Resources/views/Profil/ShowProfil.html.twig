@@ -56,14 +56,28 @@
 			</a>
 		</div>
 	</div>
-	<label class="switch"> 
-		
-		<a href="{{ path('modifTemplate') }}">
-			<input type="checkbox" name="template" value>
-			<span class="slider round"></span>
-		</a> 
-	</label>
-	<p>Changer de thème</p>
+	<div>
+	<form action="{{ path('ModifTemplate') }}" method="POST">
+		<fieldset class="form-group">
+	      <legend>Changer de Thème</legend>
+	      <div class="form-check">
+	        <label class="form-check-label">
+	          <input class="form-check-input" name="template" id="optionsRadios1" value="United" checked="" type="radio">
+	          Orange
+	        </label>
+	      </div>
+	      <div class="form-check">
+	      <label class="form-check-label">
+	          <input class="form-check-input" name="template" id="optionsRadios2" value="Flatly" type="radio">
+	          Blue
+	        </label>
+	      </div>
+	    </fieldset>
+	
+		<input type="submit" value="test" name="test">
+	</form>
+	</div>
+
 
 	
 	</div>
