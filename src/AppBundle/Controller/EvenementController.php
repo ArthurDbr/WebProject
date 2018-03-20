@@ -188,7 +188,7 @@ class EvenementController extends Controller{
 
         if ($form->isSubmitted() && $form->isValid()) {
             $evenements = $this->getDoctrine()->getRepository(Evenement::class)->findBy(
-                ['description' => '$event->getDescription()']
+                ['description' => $event->getDescription()]
               );
 
               if (!$evenements) {
