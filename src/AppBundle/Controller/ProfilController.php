@@ -48,13 +48,32 @@ class ProfilController extends Controller{
         if( isset($_POST['modifer'])){
             $em = $this->getDoctrine()->getManager();
 
-            $userName = addcslashes($_POST['UserName'], '\'%_');
-            $nom = addcslashes($_POST['Nom'], '\'%_');
-            $prenom = addcslashes($_POST['Prenom'], '\'%_"/');
-            $email = $_POST['Mail'];
-            $age = $_POST['Age'];
-
-
+            if( isset($_POST['UserName'])){
+                $userName = addcslashes($_POST['UserName'], '\'%_');
+            }else{
+                $userName= null;
+            }
+            if( isset($_POST['Nom'])){
+                $nom = addcslashes($_POST['Nom'], '\'%_');
+            }else{
+                $nom = null;
+            }
+            if( isset($_POST['Prenom'])){
+                $prenom = addcslashes($_POST['Prenom'], '\'%_"/');
+            }else{
+                $prenom= null;
+            }
+            if( isset($_POST['Mail'])){
+                $email = $_POST['Mail'];
+            }else{
+                $email = null;
+            }
+            if( isset($_POST['Age'])){
+                $age = (int)$_POST['Age'];
+            }else{
+                $age = null;
+            }
+            
             $profil->setUsername($userName);
             $profil->setNom($nom);
             $profil->setPrenom($prenom);
@@ -62,10 +81,8 @@ class ProfilController extends Controller{
             $profil->setAge($age);
             $em = $this->getDoctrine()->getManager();
 
-            // Étape 1 : On « persiste » l'entité
             $em->persist($profil);
 
-            // Étape 2 : On « flush » 
             $em->flush();
 
             return $this->render('Profil/ShowProfil.html.twig', ['profil' => $profil,
