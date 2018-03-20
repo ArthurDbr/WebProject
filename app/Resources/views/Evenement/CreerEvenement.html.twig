@@ -15,6 +15,7 @@
   <strong>Ouuups !</strong> {{ erreur }}
 </div>
 {% endif %}
+<<<<<<< HEAD
 <br>
 <div class="container">
 <div class="align-item-center">
@@ -57,6 +58,52 @@
 							<div class="form-control-wrapper">
 								<input name = "heure" type="text" id="time" class="form-control floating-label" placeholder="" value={{ heure | default('') }}>
 							</div>
+=======
+<div class="col-md-4">
+	<form action="{{ path('ajoutEvent') }}"  method="post">
+		<table class="table table-hover">
+			<tr>
+	   			<td  >Category : </td>
+	   			<td>
+				    <select name="Categorie" class="custom-select">
+				      {#<option  value="0" selected>Select a categorie</option>#}
+				      {#<option  value="1">Party</option>#}
+				      {#<option  value="2">Study</option>#}
+				      {#<option  value="3">Theatre</option>#}
+				      {#<option  value="4">Cinema</option>#}
+				      {#<option  value="5">Restaurent</option>#}
+				      {#<option  value="6">Sport</option>#}
+						{% set i = 0 %}
+						{% for type in types %}
+							<option  value={{ i }} {% if categorie == i %} selected {% endif %}>{{ type }}</option>
+							{% set i = i+1 %}
+						{% endfor %}
+				    </select>
+	   			</td>
+	   		</tr>
+	    	<tr>
+	    		<td  >Description : </td><td> <input type="text" name="Description" class="form-control" value={{ description | default('') }}></td>
+	    	</tr>
+	    	<tr>
+	   			<td>Lieu : </td><td><input type="text" name="Lieu" class="form-control" value={{ lieu | default('') }}></td>
+	   		</tr>
+	   		<tr>
+	   			<td>
+	   				Date :
+	   			</td>
+	   			<td>
+  					<input name="date" type="date" class="form-control" value={{ date | default('') }}>
+  				</td>
+	   		</tr>
+	   		<tr>
+	   			<td>
+					Time :
+				</td>
+				<td>
+					<div class="form-control-wrapper">
+						<input name = "heure" type="text" id="time" class="form-control floating-label" placeholder="" value={{ heure | default('') }}>
+					</div>
+>>>>>>> meilleur-requetes-barre-de-recherche
 
 		  				</td>
 			   		</tr>
@@ -82,5 +129,5 @@
 		<link rel="stylesheet" href="{{ asset('css/bootstrap-material-datetimepicker.css') }}" />
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   
+
 {% endblock %}

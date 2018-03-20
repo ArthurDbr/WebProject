@@ -12,14 +12,20 @@
 	    <div class="col-md-10 offset-md-1 row-block">
 	        <ul id="sortable">
 	        	{% for participe in participantEvenement %}
-	        		
+
 		        	{% for event in evenement %}
+<<<<<<< HEAD
 		        		{% if  ( participe.id == event.id  ) %}
+=======
+		        		{% if  ( participe.idEvenement == event.id   and  participe.idPersonne == app.user.id ) or
+		        			(  app.user.id == event.idPersonne  ) %}
+>>>>>>> meilleur-requetes-barre-de-recherche
 
 			            <li><div class="media">
 			            <div class="media-left align-self-center">
 			                <img class="rounded-circle" src="{{ asset('img/fondProfil.png') }}">
 			            </div>
+<<<<<<< HEAD
 		            	<div class="media-body">
 							<h4>
 							{% for profil in profils %}
@@ -61,11 +67,37 @@
 						</div>
 
 
+=======
+			            <div class="media-body">
+			            	<h4>
+			            	</h4>
+			            	<p>
+			            	<i>
+			            		{% if event.idTypeEvenement == 1 %}
+				   					Party
+				   				{% elseif event.idTypeEvenement == 2 %}
+				   					Study
+				   				{% elseif event.idTypeEvenement == 3 %}
+				   					Theatre
+				   				{% elseif event.idTypeEvenement == 4 %}
+				   					Cinema
+				   				{% elseif event.idTypeEvenement == 5 %}
+				   					Restaurent
+				   				{% elseif event.idTypeEvenement == 6 %}
+				   					Sport
+				   				{% endif %}
+				   			</i><br>
+			                {{ event.dateEvenement }}</p>
+			            </div>
+			            <div class="media-right align-self-center">
+			                <a href="{{ path('showEvenement', { id :  event.id }) }}"><input type="submit" value="more info" name="Info" class="btn btn-info btn-xs btn-block"></a>
+			            </div>
+>>>>>>> meilleur-requetes-barre-de-recherche
 			        </div></li>
 			        {% endif %}
 			        {% endfor %}
 		        {% endfor %}
-	        
+
 	        </ul>
 	    </div>
 </div>

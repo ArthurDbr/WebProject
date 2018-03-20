@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Users;
 use AppBundle\Entity\ParticipantEvenement;
-    
+
 /**
 * @Route("/user/{_locale}/accueil")
 */
@@ -20,9 +20,9 @@ class AccueilController extends Controller{
     */
 
     public function indexAction(Request $request){
-        $typeEvent = [ 1 => "Party", 
-            2 => "Study", 
-            3 => "Theatre", 
+        $typeEvent = [ 1 => "Party",
+            2 => "Study",
+            3 => "Theatre",
             4 => "Cinema",
             5 => "Restaurant",
             6 => "Sport"];
@@ -40,12 +40,11 @@ class AccueilController extends Controller{
             $repository2 = $this->getDoctrine()->getRepository(Users::class);
             $evenement = $repository1->findAll();
             $profil = $repository2->findAll();
-            
+
             return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '',
                 'typeEvent' => $typeEvent,
                 'evenement' => $evenement,
-                'profils'=> $profil,
-                ]);
+                'profils'=> $profil ]);
 
         } else {
             return $this->render('default/index.html.twig', [
@@ -61,8 +60,45 @@ class AccueilController extends Controller{
         return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '']);
     }
 
-    
+
+    /**
+    * @Route("/{id}", requirements={"id":"\d+"}, name="addParticipantEvent")
+    */
+    public function AddEvent(Request $request, Evenement $event){
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(ParticipantEvenement::class);
+        $ajoute = false;
+        $participant = $repository->findAll();
+        foreach ($participant as $parti) {
+            if($parti->getIdEvenement() == $event->getId()){
+                $ajoute = true;
+            }
+        }
+
+        if( $ajoute == false){
+                    $participantEvenement = new ParticipantEvenement();
+
+            $participantEvenement->setIdPersonne($this->getUser()->getId());
+            $participantEvenement->setIdEvenement($event->getId());
+
+            $em->persist($participantEvenement);
+
+            $em->flush();
 
 
+            return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $event,
+                                                                    'profils'=> $this->getUser()]);
+        }else{
+            $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
+            $repository2 = $this->getDoctrine()->getRepository(Users::class);
+            $evenement = $repository1->findAll();
+            $profil = $repository2->findAll();
+            return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => 'event already add',
+                                                            'evenement' => $evenement,
+                                                            'profils'=> $profil ]);
+        }
+
+
+}
 }
 ?>

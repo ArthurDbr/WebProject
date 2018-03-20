@@ -10,14 +10,4 @@ namespace AppBundle\Repository;
  */
 class ParticipantEvenementRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getEvent($id){
-        $qb = $this->createQueryBuilder()
-            ->select('l.valeurCompter)');
-
-        return $qb->getQuery()
-            ->getSingleScalarResult();
-
-
-
-    }
 }
