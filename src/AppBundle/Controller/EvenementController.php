@@ -86,6 +86,9 @@ class EvenementController extends Controller{
     * @Route("/show/{id}", requirements={"id":"\d+"}, name="showEvenement")
     */
     public function showEvent(Request $request, Evenement $event){
+        $repository = $this->getDoctrine()->getRepository(Users::class);
+        $users = $repository->findAll();
+        
         $typeEvent = [ 1 => "Party", 
             2 => "Study", 
             3 => "Theatre", 
@@ -94,6 +97,7 @@ class EvenementController extends Controller{
             6 => "Sport"];
 
             return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $event,
+                                                                        'participantEvenement' => $users,
                                                                         'typeEvent' => $typeEvent]);
     }
 
