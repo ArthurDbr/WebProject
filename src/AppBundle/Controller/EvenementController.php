@@ -16,7 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Users;
 use AppBundle\Form\EvenementType;
+use AppBundle\Repository\evenementRepository;
 
+use Doctrine\ORM\Query\Expr;
 
 /**
 * @Route("/user/{_locale}/Event")
@@ -259,7 +261,7 @@ class EvenementController extends Controller{
             return $this->redirectToRoute('MyEvent');
         }
     }
-
+    
 
 
 }

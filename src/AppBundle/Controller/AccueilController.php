@@ -31,7 +31,7 @@ class AccueilController extends Controller{
             $repository2 = $this->getDoctrine()->getRepository(Users::class);
             $evenement = $repository1->findAll();
             $profil = $repository2->findAll();
-            return $this->render('Accueil/AccueilAdmin.html.twig', ['ajoutEvent' => '',
+            return $this->render('Accueil/AccueilAdmin.html.twig', ['messageEvent' => '',
                 'evenement' => $evenement,
                 'profils'=> $profil ]);
 
@@ -41,7 +41,7 @@ class AccueilController extends Controller{
             $evenement = $repository1->findAll();
             $profil = $repository2->findAll();
             
-            return $this->render('Accueil/Accueil.html.twig', ['ajoutEvent' => '',
+            return $this->render('Accueil/Accueil.html.twig', ['messageEvent' => '',
                 'typeEvent' => $typeEvent,
                 'evenement' => $evenement,
                 'profils'=> $profil,
@@ -59,6 +59,80 @@ class AccueilController extends Controller{
     */
     public function CreerEvent(Request $request){
         return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '']);
+    }
+
+    /**
+     * @Route("/search", name="RechercherEvenement")
+     */
+    public function searchAction(Request $request)
+    {
+
+        $typeEvent = [ 1 => "Party", 
+            2 => "Study", 
+            3 => "Theatre", 
+            4 => "Cinema",
+            5 => "Restaurant",
+            6 => "Sport"];
+        $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
+        $repository2 = $this->getDoctrine()->getRepository(Users::class);
+        $profil = $repository2->findAll();
+
+        $event = $repository1->findAll();;
+
+
+        if( isset($_POST["search"])){
+            $em = $this->getDoctrine()->getManager();
+            $mot = addcslashes($_POST['description'], '\'%_"/');
+            if($mot == ''){
+                return $this->redirectToRoute("accueil_index");
+            }else{
+                
+                switch ($mot) {
+                    case 'Party':
+                        $mot = 1;
+                        break;
+                    case 'Study':
+                        $mot = 2;
+                        break;
+                    case 'Theatre':
+                        $mot = 3;
+                        break;
+                    case 'Cinema':
+                        $mot = 4;
+                        break;
+                    case 'Restaurant':
+                        $mot = 5;
+                        break;
+                    case 'Sport':
+                        $mot = 6;
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+                $evenements = $em->getRepository('AppBundle:Evenement')
+                            ->research($mot);
+
+                if (!$evenements) {
+                    return $this->render('Accueil/Accueil.html.twig', ['messageEvent' => 'OOPS, no event found',
+                    'typeEvent' => $typeEvent,
+                    'evenement' => $evenements,
+                    'profils'=> $profil,
+                    ]);
+                }
+
+                return $this->render('Accueil/Accueil.html.twig', ['messageEvent' => '',
+                'typeEvent' => $typeEvent,
+                'evenement' => $evenements,
+                'profils'=> $profil,
+                ]);
+            }
+
+        }
+            
+            return $this->redirectToRoute('accueil_index');
+            
     }
 
     

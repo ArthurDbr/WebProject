@@ -24,7 +24,7 @@
           <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
 
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="{{ path('createEvent') }}">{{ 'nav.create'|trans }}</a>
               </li>
               <li class="nav-item">
@@ -38,19 +38,22 @@
               </li>
             </ul>
           
-          <ul class="nav navbar-right ">
+          <ul class="nav navbar-right ">      
+            <form action="{{ path('RechercherEvenement') }}" method="POST" class="form-inline my-2 my-lg-0">
+              <div class="col-sm-12">                   
+              <div class="input-group">
+              <input class="form-control mr-xs-2" placeholder="Search" type="text" name="description">
+              <button class="btn btn-default my-2 my-sm-0" type="submit" name="search">Go</button>
+              </div>
+              </div>
+            </form>
             <li class="nav-item bg-light">            
               <a class="nav-link" href="{{ path('fos_user_security_logout') }}">
                   {{ 'bouton.Deconnexion'|trans }}
               </a>
             </li>
-            <li class="nav-item dropdown bg-light">
-            <a class="nav-link  dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">langue</a>
-            <div class="dropdown-menu " x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px;  max-width:30px;">
-            <a class="dropdown-item" href="{{ path('accueil_index', {'_locale':'fr'}) }}">Fr</a>
-            <a class="dropdown-item" href="{{ path('accueil_index', {'_locale':'en'}) }}">En</a>
-            </div>
-            </li>
+            <a type="button" class="btn btn-link" href="{{ path('accueil_index', {'_locale':'fr'}) }}">Fr</a>
+            <a type="button" class="btn btn-link"  href="{{ path('accueil_index', {'_locale':'en'}) }}">En</a>
           </ul>
           </div>
         </nav>

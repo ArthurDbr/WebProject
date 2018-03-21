@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{% if ajoutEvent != '' %}
+{% if messageEvent != '' %}
 	<div class="alert alert-dismissible alert-info">
-	  <strong>Great !</strong> {{ajoutEvent}}
+	  {{messageEvent}}
 	</div>
 {% endif %}
 <div class="jumbotron">

@@ -1,7 +1,8 @@
 <?php
 
 namespace AppBundle\Repository;
-
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\QueryBuilder;
 /**
  * evenementRepository
  *
@@ -10,4 +11,16 @@ namespace AppBundle\Repository;
  */
 class evenementRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function research(String $mot )
+    {
+        return $this->createQueryBuilder('e')
+                    ->where('e.description LIKE ?1')
+                    ->orwhere('e.description LIKE ?2')
+                    ->orwhere('e.idTypeEvenement LIKE ?3')
+                    ->setParameter(1, '% '.$mot.' %')
+                    ->setParameter(2, $mot.' %')
+                    ->setParameter(3, $mot)
+                    ->getQuery()
+                    ->execute();
+    }
 }

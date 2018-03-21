@@ -25,7 +25,7 @@ class ProfilController extends Controller{
     }
 
     /**
-    * @Route("/template", name="ModifTemplate")
+    * @Route("/templateChange", name="ModifTemplate")
     * @return \Symfony\Component\httpFoundation\Response
     * @throws \LogicException
     */
