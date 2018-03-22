@@ -5,10 +5,14 @@ title.allEvents: 'All the events'
 description.allEvents: 'Here you can see all the events'
 title.myEvents: 'My events'
 description.myEvents: 'Here you can see the events you''ve created or the events you''ll participate'
-bouton.eventAccueil: participe
-nav.event: __nav.event
-nav.account: __nav.account
+bouton.eventAccueil: Participe
+nav.event: Event
+nav.account: Account
 bouton.Deconnexion: 'Logged Out'
 more.event: 'More info'
 participate.event: Participate
-unsubscribe.event: __unsubscribe.event
+unsubscribe.event: Unsubscribe
+delete.event: Delete
+modify.event: Modify
+title.about: About
+nav.about: About

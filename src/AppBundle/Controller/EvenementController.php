@@ -18,6 +18,8 @@ use AppBundle\Entity\Users;
 use AppBundle\Form\EvenementType;
 use AppBundle\Repository\evenementRepository;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Query\Expr;
 
 /**
@@ -65,6 +67,16 @@ class EvenementController extends Controller{
         $profil->addListeEvenement($e);
         $em->persist($profil);
         $em->flush();
+
+        $repository2 = $this->getDoctrine()->getRepository(Users::class);
+        $profils = $repository2->findAll();
+        foreach ($profils as $profil) {
+            if($profil->getId() == $e->getIdPersonne()){
+                $userEvent = $profil;
+            }
+        }
+        
+
         return $this->redirectToRoute('MyEvent');
     }
 
@@ -87,9 +99,20 @@ class EvenementController extends Controller{
     /**
     * @Route("/show/{id}", requirements={"id":"\d+"}, name="showEvenement")
     */
-    public function showEvent(Request $request, Evenement $event){
+    public function showEvent(Request $request, Evenement $e){
         $repository = $this->getDoctrine()->getRepository(Users::class);
         $users = $repository->findAll();
+        $participantEvenement = new ArrayCollection();
+        foreach ($users as $user) {
+            $events = $user->getListeEvenement();
+            $ajoute = true;
+            foreach ($events as $event) {
+                if($event->getId() == $e->getId()){
+                     $participantEvenement->add($user); 
+                   
+                }
+            }
+        }
         
         $typeEvent = [ 1 => "Party", 
             2 => "Study", 
@@ -99,8 +122,8 @@ class EvenementController extends Controller{
             6 => "Sport"];
 
             return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $event,
-                                                                        'participantEvenement' => $users,
-                                                                        'typeEvent' => $typeEvent]);
+                                                                'participantEvenement' => $participantEvenement,
+                                                                'typeEvent' => $typeEvent]);
     }
 
     /**
@@ -193,18 +216,6 @@ class EvenementController extends Controller{
         return $this->redirectToRoute('MyEvent');
     }
 
-    /**
-    * @Route("/createEvent", name="createEvent")
-    * @return \Symfony\Component\httpFoundation\Response
-    * @throws \LogicException
-    */
-    public function createEvent(Request $request){
-
-        return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '',
-                                                                    'types' => array( 'Select a categorie','Party', 'Study', 'Théatre', 'Cinema', 'Restaurant', 'Sport'),
-                                                                     'categorie' => 0,
-        ]);
-    }
 
     /**
     * @Route("/ajoutEvent", name="ajoutEvent")
@@ -224,41 +235,54 @@ class EvenementController extends Controller{
         $userId = $this->getUser()->getId();
         $profil = $this->getUser();
 
-        if( ($_POST['Categorie'] == '0') || empty($_POST['Lieu']) || empty($_POST['Description'])|| empty($_POST['date']) || empty($_POST['heure'])){
-            return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => 'You need to provide all the fields',
-                                                                        'categorie' => $_POST['Categorie'],
-                                                                        'description' => $_POST['Description'],
-                                                                        'lieu' => $_POST['Lieu'],
-                                                                        'date' => $_POST['date'],
-                                                                        'heure' => $_POST['heure'],
-                                                                        'types' => $typeEvent,
+        if(isset($_POST['ajouter'])){
+            if( ($_POST['Categorie'] == '0') || empty($_POST['Lieu']) || empty($_POST['Description'])|| empty($_POST['date']) || empty($_POST['heure'])){
+                return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => 'You need to provide all the fields',
+                                                                            'categorie' => $_POST['Categorie'],
+                                                                            'description' => $_POST['Description'],
+                                                                            'lieu' => $_POST['Lieu'],
+                                                                            'date' => $_POST['date'],
+                                                                            'heure' => $_POST['heure'],
+                                                                            'types' => $typeEvent,
 
-            ]);
+                ]);
+            }else{
+                $lieu = addcslashes($_POST['Lieu'], '\'%_');
+                $descri = addcslashes($_POST['Description'], '\'%_"/');
+                $categ = (int)$_POST['Categorie'];
+                $date = $_POST['date'];
+                $heure = $_POST['heure'];
+
+                $evenement->setLieu($lieu);
+                $evenement->setDescription($descri);
+                $evenement->setIdPersonne($userId);
+                $evenement->setIdTypeEvenement($categ);
+                $evenement->setDateEvenement($date);
+                $evenement->setHeureEvenement($heure);
+
+                $em->persist($evenement);
+
+                $em->flush();
+
+                $profil->addListeEvenement($evenement);
+                $em->persist($profil);
+                $em->flush();
+
+
+
+                return $this->redirectToRoute('MyEvent');
+            }
         }else{
-            $lieu = addcslashes($_POST['Lieu'], '\'%_');
-            $descri = addcslashes($_POST['Description'], '\'%_"/');
-            $categ = (int)$_POST['Categorie'];
-            $date = $_POST['date'];
-            $heure = $_POST['heure'];
-
-            $evenement->setLieu($lieu);
-            $evenement->setDescription($descri);
-            $evenement->setIdPersonne($userId);
-            $evenement->setIdTypeEvenement($categ);
-            $evenement->setDateEvenement($date);
-            $evenement->setHeureEvenement($heure);
-
-            $em->persist($evenement);
-
-            $em->flush();
-
-            $profil->addListeEvenement($evenement);
-            $em->persist($profil);
-            $em->flush();
-
-
-
-            return $this->redirectToRoute('MyEvent');
+            return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '',
+                                                                        'types' => array( 'Select a categorie',
+                                                                        'Party', 
+                                                                        'Study', 
+                                                                        'Théatre', 
+                                                                        'Cinema', 
+                                                                        'Restaurant', 
+                                                                        'Sport'),
+                                                                     'categorie' => 0,
+            ]);
         }
     }
     

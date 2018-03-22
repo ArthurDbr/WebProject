@@ -13,16 +13,16 @@
 		<div class="card-body">
 		<table class="table table-hover">
 	    	<tr>
-	    		<td  >Description : </td><td> {{ event.description }}</td>
+	    		<td>{{'Description.createEvent'|trans}} </td><td> {{ event.description }}</td>
 	    	</tr>
 	    	<tr>
-	   			<td>Lieu : </td><td> {{ event.lieu }}</td>
+	   			<td>{{'Lieu.createEvent'|trans}} </td><td> {{ event.lieu }}</td>
 	   		</tr>
 	    	<tr>
-	   			<td>Date : </td><td> {{ event.dateEvenement }}</td>
+	   			<td>{{'Date.createEvent'|trans}} </td><td> {{ event.dateEvenement }}</td>
 	   		</tr>
 	    	<tr>
-	   			<td>Heure : </td><td> {{ event.heureEvenement }}</td>
+	   			<td>{{'Heure.createEvent'|trans}}</td><td> {{ event.heureEvenement }}</td>
 	   		</tr>
 	   		{% if app.user.id == event.idPersonne %}
 	   		<tr>
@@ -51,25 +51,16 @@
 	<div class="card-header text-center"><b>Participant</b></div>
 	<table class="table">
 		{% for participe in participantEvenement %}
-			{% for e in participe.listeEvenement %}
-				{{ event.idPersonne }}
-				{% if e.idPersonne == event.idPersonne %}
-					{% if (loop.index is divisibleby(4)) and (participe.id == event.id) %}
-					<tr>
-					{% endif %}
-						
-						<td>
-							<div>
-				            <img class="img-profil" src="{{ asset('img/fondProfil.png') }}">
+			<td>
+				<div>
+	            <img class="img-profil" src="{{ asset('img/fondProfil.png') }}">
 
-							<span class="align-middle">{{ participe.userName }}</span>
-							</div>
-						</td>
-					{% if loop.index is divisibleby(3) %}
-					</tr>
-					{% endif %}
-				{% endif %}
-			{% endfor %}
+				<span class="align-middle">{{ participe.userName }}</span>
+				</div>
+			</td>
+		{% if loop.index is divisibleby(3) %}
+			</tr>
+		{% endif %}
 		{% endfor %}
 	</table>
 	</div>

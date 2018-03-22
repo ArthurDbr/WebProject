@@ -1,14 +1,18 @@
 nav.create: 'Créer Evénement'
-nav.myEvent: 'Mes Evénement'
+nav.myEvent: 'Mes Evénements'
 nav.profil: 'Mon Profil'
 title.allEvents: 'Tous les événements'
 description.allEvents: 'Ici vous voyez tous les événements'
 title.myEvents: 'Mes événements personnel'
 description.myEvents: 'Ici vous pouvez voir vos événements créés ou ceux auxquels vous participez'
-bouton.eventAccueil: participer
-nav.event: __nav.event
-nav.account: __nav.account
+bouton.eventAccueil: Participer
+nav.event: Evénements
+nav.account: Compte
 bouton.Deconnexion: Deconnexion
 more.event: 'Plus d''info'
 participate.event: Participer
-unsubscribe.event: __unsubscribe.event
+unsubscribe.event: Désinscription
+delete.event: Supprimer
+modify.event: Modifier
+title.about: 'A Propos'
+nav.about: 'A propos'

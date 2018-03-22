@@ -1,5 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
 
-body,h1 {font-family: "Raleway", sans-serif}
 body, html {height: 100%}
 
 .bgimg {
@@ -11,4 +11,20 @@ body, html {height: 100%}
 
 td{
 	font-weight: bold;
+}
+
+.logo{
+	font-family: 'Pacifico', cursive;
+	color:#E95420;
+	font-size:400px !important;
+	text-shadow: 0 1px 0 #eee,
+             0 2px 0 #e5e5e5,
+             -1px 3px 0 #C8C8C8,
+             -1px 4px 0 #C1C1C1,
+             -2px 5px 0 #B9B9B9,
+             -2px 6px 0 #B2B2B2,
+             -2px 7px 2px rgba(0,0,0, 0.6),
+             -2px 7px 8px rgba(0,0,0, 0.2),
+             -2px 7px 45px rgba(0,0,0, 0.4);
+	
 }

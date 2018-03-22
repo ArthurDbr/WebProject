@@ -16,31 +16,32 @@
 		        	{% for event in evenement %}
 		        		{% if  ( participe.id == event.id  ) %}
 
-			            <li><div class="media">
-			            <div class="media-left align-self-center">
-			                <img class="rounded-circle" src="{{ asset('img/fondProfil.png') }}">
-			            </div>
-		            	<div class="media-body">
-							<h4>
-							{% for profil in profils %}
-								{% if event.idPersonne == profil.id %}
-									{{ profil.userName }}
-								{% endif %}
-							{% endfor %}
-							</h4>
-							<p>
-							<i>
-								{{ typeEvent[event.idTypeEvenement] }}
-							</i>
-							<br>
-							{{ event.dateEvenement }}
-							</p>
-						</div>
-						<div class="media-body">
-							</p>
+			            <li>
+			            	<div class="media">
+			            		<div class="media-left align-self-center">
+			                	<img class="rounded-circle" src="{{ asset('img/fondProfil.png') }}"/>
+			            	</div>
+		            		<div class="media-body">
+								<h4>
+								{% for profil in profils %}
+									{% if event.idPersonne == profil.id %}
+										{{ profil.userName }}
+									{% endif %}
+								{% endfor %}
+								</h4>
+								<p>
+									<i>
+										{{ typeEvent[event.idTypeEvenement] }}
+									</i>
+								<br>
+									{{ event.dateEvenement }}
+								</p>
+							</div>
+							<div class="media-body">
+							
 							<b>{{ event.description }}</b>
 						</div>
-						<div class="col-xs-4 align-self-center" style="width: 7rem;">
+						<div class="col-xs-4 align-self-center largeur" >
 							<div class="media-right align-self-center">
 			                <a href="{{ path('showEvenement', { id :  event.id }) }}"><input type="submit" 
 			                value="{{ 'more.event'|trans }}" name="Info" class="btn btn-info btn-xs btn-block"></a>

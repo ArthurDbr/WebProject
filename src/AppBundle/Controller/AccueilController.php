@@ -62,6 +62,16 @@ class AccueilController extends Controller{
     }
 
     /**
+    * @Route("/about", name="About")
+    */
+    public function about(Request $request){
+        $message = "Ce site web a été réalisé avec Symfony 3.4 et Bootstrap dans le cadre 
+        d'un projet de developpement Web.";
+        $auteur = "Auteurs : BOIRO Mamadou, DEBAR Arthur, VALENZA Pierre";
+        return $this->render('About/About.html.twig', ['message' => $message, 'auteur' => $auteur]);
+    }
+
+    /**
      * @Route("/search", name="RechercherEvenement")
      */
     public function searchAction(Request $request)
