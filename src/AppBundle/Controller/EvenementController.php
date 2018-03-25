@@ -68,6 +68,17 @@ class EvenementController extends Controller{
 
 
         $profil->addDemande($e);
+        foreach ($profils as $profilEvent) {
+            $evenment = $profilEvent->getListeEvenement();
+            foreach ($evenment as $event) {
+                if($event->getId() == $e->getId()){
+                    $profilEvent->setNotification(true);
+                    $em->persist($profilEvent);
+                    $em->flush();
+                }
+            }
+
+        }
         $em->persist($profil);
         $em->flush();
             

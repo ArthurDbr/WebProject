@@ -21,5 +21,6 @@ Description.createEvent: 'Description :'
 Lieu.createEvent: 'Location :'
 Date.createEvent: 'Date :'
 Heure.createEvent: 'Time :'
-accept.event: 'Accept'
-refuse.event: 'Refuse'
+accept.event: Accept
+refuse.event: Refuse
+demand.event: 'Demand send'

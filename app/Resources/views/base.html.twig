@@ -30,8 +30,13 @@
                 <a class="nav-link" href="{{ path('ajoutEvent') }}">{{ 'nav.create'|trans }}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ path('MyEvent') }}">{{ 'nav.myEvent'|trans }} </a>
+                <a class="nav-link" href="{{ path('MyEvent') }}">{{ 'nav.myEvent'|trans }} 
+                  {% if app.user.notification %}
+                    <sup>1</sup>
+                  {% endif %}
+                </a>
               </li>
+
               <li class="nav-item">
                 <a class="nav-link" href="{{ path('MyProfil') }}">{{ 'nav.profil'|trans }}</a>
               </li>
@@ -70,4 +75,12 @@
 
         {% endblock %}
     </body>
+    <footer>
+      <div class="container ">
+        <div class=" offset-md-2 row-block">
+          <span class="text-muted">2018 - Developpé par Arthur Debar, Pierre Valenza et Mamadou Boiro</span>
+        </div>
+      </div>
+      <br>
+    </footer>
 </html>

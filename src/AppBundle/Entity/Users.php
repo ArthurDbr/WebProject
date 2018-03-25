@@ -64,6 +64,13 @@ class Users extends BaseUser
 
     private $demande;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="notification", type="boolean", nullable=true)
+     */
+    protected $notification = false;
+
     public function __construct(){
         $this->listeEvenement = new ArrayCollection();
         $this->demande = new ArrayCollection();
@@ -245,5 +252,29 @@ class Users extends BaseUser
     public function getDemande()
     {
         return $this->demande;
+    }
+
+    /**
+     * Set notification
+     *
+     * @param boolean $notification
+     *
+     * @return Users
+     */
+    public function setNotification($notification)
+    {
+        $this->notification = $notification;
+
+        return $this;
+    }
+
+    /**
+     * Get notification
+     *
+     * @return boolean
+     */
+    public function getNotification()
+    {
+        return $this->notification;
     }
 }

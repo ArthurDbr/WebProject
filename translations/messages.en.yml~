@@ -21,3 +21,5 @@ Description.createEvent: 'Description :'
 Lieu.createEvent: 'Location :'
 Date.createEvent: 'Date :'
 Heure.createEvent: 'Time :'
+accept.event: Accept
+refuse.event: Refuse

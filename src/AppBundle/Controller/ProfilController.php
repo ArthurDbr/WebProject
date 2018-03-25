@@ -44,14 +44,37 @@ class ProfilController extends Controller{
     */
     public function addParticipant(Request $request, Evenement $e, Users $p){
         $em = $this->getDoctrine()->getManager();
+        $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
+        $repository2 = $this->getDoctrine()->getRepository(Users::class);
+        $users = $repository2->findAll();
 
         $p->addListeEvenement($e);
         $em->persist($p);
         $em->flush();
 
+        $notif = false;
+        $profil = $this->getUser();
+        $evenement = $profil->getListeEvenement();
+
         $p->removeDemande($e);
         $em->persist($p);
         $em->flush();
+
+        foreach ($evenement as $event) {
+            foreach ($users as $user) {
+                $demandes = $user->getDemande();
+                foreach ($demandes as $demande) {           
+                    if($demande->getId() == $event->getId() ){
+                        $notif = true;
+                    }
+                }
+            }
+        }
+        if( !$notif ){
+            $profil->setNotification(false);
+            $em->persist($profil);
+            $em->flush();
+        }
 
         return $this->redirectToRoute('MyEvent');
     }
@@ -68,6 +91,22 @@ class ProfilController extends Controller{
         $p->removeDemande($e);
         $em->persist($p);
         $em->flush();
+
+        foreach ($evenement as $event) {
+            foreach ($users as $user) {
+                $demandes = $user->getDemande();
+                foreach ($demandes as $demande) {           
+                    if($demande->getId() == $event->getId() ){
+                        $notif = true;
+                    }
+                }
+            }
+        }
+        if( !$notif ){
+            $profil->setNotification(false);
+            $em->persist($profil);
+            $em->flush();
+        }
 
         return $this->redirectToRoute('MyEvent');
     }
