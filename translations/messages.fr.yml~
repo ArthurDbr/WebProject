@@ -16,3 +16,8 @@ delete.event: Supprimer
 modify.event: Modifier
 title.about: 'A Propos'
 nav.about: 'A propos'
+Categorie.createEvent: 'Catégorie :'
+Description.createEvent: 'Description :'
+Lieu.createEvent: 'Lieu :'
+Date.createEvent: 'Date :'
+Heure.createEvent: 'Heure :'

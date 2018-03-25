@@ -6,7 +6,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Users;
+use AppBundle\Entity\Evenement;
 use AppBundle\Form\EvenementType;
+use Doctrine\Common\Collections\ArrayCollection;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
 * @Route("/user/{_locale}/Profil")
@@ -18,10 +21,55 @@ class ProfilController extends Controller{
     * @throws \LogicException
     */
     public function indexAction(Request $request){
+
+        $typeEvent = [ 1 => "Party", 
+                    2 => "Study", 
+                    3 => "Theatre", 
+                    4 => "Cinema",
+                    5 => "Restaurant",
+                    6 => "Sport"];
+
         $profil = $this->getUser();
+        
 
         return $this->render('Profil/ShowProfil.html.twig', ['profil' => $profil,
                                                             'Modifprofil' => '']);
+    }
+
+
+        /**
+    * @Route("/addParticipant/{id1}/{id2}", requirements={"id1":"\d+","id2":"\d+"}, name="addParticipant")
+    * @ParamConverter("e",      options={"mapping": {"id1" : "id"}})
+    * @ParamConverter("p",      options={"mapping": {"id2"   : "id"}})
+    */
+    public function addParticipant(Request $request, Evenement $e, Users $p){
+        $em = $this->getDoctrine()->getManager();
+
+        $p->addListeEvenement($e);
+        $em->persist($p);
+        $em->flush();
+
+        $p->removeDemande($e);
+        $em->persist($p);
+        $em->flush();
+
+        return $this->redirectToRoute('MyEvent');
+    }
+
+
+    /**
+    * @Route("/refuseParticipant/{id1}/{id2}", requirements={"id1":"\d+","id2":"\d+"}, name="refuseParticipant")
+    * @ParamConverter("e",      options={"mapping": {"id1" : "id"}})
+    * @ParamConverter("p",      options={"mapping": {"id2"   : "id"}})
+    */
+    public function refuseParticipant(Request $request, Evenement $e, Users $p){
+        $em = $this->getDoctrine()->getManager();
+
+        $p->removeDemande($e);
+        $em->persist($p);
+        $em->flush();
+
+        return $this->redirectToRoute('MyEvent');
     }
 
     /**
@@ -37,8 +85,7 @@ class ProfilController extends Controller{
         $em->persist($profil);
         $em->flush();
         
-        return $this->render('Profil/ShowProfil.html.twig', ['profil' => $profil,
-                                                            'Modifprofil' => 'Template Modify']);
+        return $this->redirectToRoute('MyProfil');
         
     }
 

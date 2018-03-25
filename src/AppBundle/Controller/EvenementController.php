@@ -4,14 +4,6 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Users;
@@ -38,6 +30,7 @@ class EvenementController extends Controller{
         $profils = $repository2->findAll();
         $user = $this->getUser();
         $participantEvenement = $user->getListeEvenement();
+        $message="";
 
         $typeEvent = [ 1 => "Party", 
                     2 => "Study", 
@@ -49,6 +42,7 @@ class EvenementController extends Controller{
         
         return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement, 
                                                                 'profils'=> $profils,
+                                                                'messageEvent' => $message,
                                                                 'typeEvent' => $typeEvent,
                                                                 'user' => $user,
                                                                 'participantEvenement'=> $participantEvenement,]);
@@ -60,24 +54,31 @@ class EvenementController extends Controller{
     public function addParticipantEvent(Request $request, Evenement $e){
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository(Evenement::class);
+        $repository2 = $this->getDoctrine()->getRepository(Users::class);
         $evenement = $repository->findAll();
+        $profils = $repository2->findAll();
         $profil = $this->getUser();
         $participantEvenement = new Users();
-            
-        $profil->addListeEvenement($e);
+        $typeEvent = [ 1 => "Party", 
+            2 => "Study", 
+            3 => "Theatre", 
+            4 => "Cinema",
+            5 => "Restaurant",
+            6 => "Sport"];
+
+
+        $profil->addDemande($e);
         $em->persist($profil);
         $em->flush();
+            
+        $message = "Demande envoyé à l'utilisateur !";
 
-        $repository2 = $this->getDoctrine()->getRepository(Users::class);
-        $profils = $repository2->findAll();
-        foreach ($profils as $profil) {
-            if($profil->getId() == $e->getIdPersonne()){
-                $userEvent = $profil;
-            }
-        }
-        
-
-        return $this->redirectToRoute('MyEvent');
+        return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement, 
+                                                                'profils'=> $profils,
+                                                                'messageEvent' => $message,
+                                                                'typeEvent' => $typeEvent,
+                                                                'user' => $profil,
+                                                                'participantEvenement'=> $participantEvenement,]);
     }
 
     /**
@@ -121,8 +122,31 @@ class EvenementController extends Controller{
             5 => "Restaurant",
             6 => "Sport"];
 
-            return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $event,
+        $profil = $this->getUser();
+        $demandes = $profil->getDemande();
+        $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
+        $repository2 = $this->getDoctrine()->getRepository(Users::class);
+
+        //$evenement = $repository1->findAll();
+        $users = $repository2->findAll();
+        $profilDemande = new ArrayCollection();
+
+
+        $evenement = $profil->getListeEvenement();
+        foreach ($evenement as $event) {
+            foreach ($users as $user) {
+                $demandes = $user->getDemande();
+                foreach ($demandes as $demande) {           
+                    if($demande->getId() == $event->getId() ){
+                        $profilDemande->add($user);
+                    }
+                }
+            }
+        }
+
+        return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $event,
                                                                 'participantEvenement' => $participantEvenement,
+                                                                'profilDemande' => $profilDemande,
                                                                 'typeEvent' => $typeEvent]);
     }
 

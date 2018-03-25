@@ -45,14 +45,23 @@
 						<div class="media-right align-self-center largeur">
 							{% if (app.user.id != event.idPersonne) %}
 								{% if app.user.listeEvenement.contains(event) %}
-								<a href="{{ path('unsubscribe', { id :  event.id }) }}">
-		                		<input type="submit" value="{{ 'unsubscribe.event'|trans }}" name="Info" class="btn btn-danger btn-xs btn-block"></a>
-		                		<hr>
+									<a href="{{ path('unsubscribe', { id :  event.id }) }}">
+			                		<input type="submit" value="{{ 'unsubscribe.event'|trans }}" name="Info" class="btn btn-danger btn-xs btn-block"></a>
+			                		<hr>
 								{% else %}
-								<a href="{{ path('addParticipantEvent', { id :  event.id}) }}">
-								<input type="submit" value="{{ 'participate.event'|trans }}" name="participer" class="btn btn-success btn-xs btn-block"></a>
-								<hr>
+									{% for profilDemande in demandes %}
+									{% if profilDemande.id == app.user.id %}
+										<input  value="Demande envoyé" name="demande" class="btn btn-success btn-xs btn-block"></a>
+										<hr>
+									{% else %}
+										<a href="{{ path('addParticipantEvent', { id :  event.id}) }}">
+										<input type="submit" value="{{ 'participate.event'|trans }}" name="participer" class="btn btn-success btn-xs btn-block"></a>
+									<hr>
+									{% endif %}
+									{% endfor %}
 								{% endif %}
+								
+
 							{% else %}
 								{% if (app.user.id == event.idPersonne) %}
 									<a href="{{ path('deleteEvenement', { id :  event.id }) }}">

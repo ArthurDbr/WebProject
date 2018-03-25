@@ -57,8 +57,16 @@ class Users extends BaseUser
 
     private $listeEvenement;
 
+    /**
+    * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Evenement", cascade={"persist", "remove"} )
+    * @ORM\JoinTable(name="demande_users")
+    */
+
+    private $demande;
+
     public function __construct(){
         $this->listeEvenement = new ArrayCollection();
+        $this->demande = new ArrayCollection();
     }
 
     /**
@@ -203,5 +211,39 @@ class Users extends BaseUser
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    /**
+     * Add demande
+     *
+     * @param \AppBundle\Entity\Evenement $demande
+     *
+     * @return Users
+     */
+    public function addDemande(\AppBundle\Entity\Evenement $demande)
+    {
+        $this->demande[] = $demande;
+
+        return $this;
+    }
+
+    /**
+     * Remove demande
+     *
+     * @param \AppBundle\Entity\Evenement $demande
+     */
+    public function removeDemande(\AppBundle\Entity\Evenement $demande)
+    {
+        $this->demande->removeElement($demande);
+    }
+
+    /**
+     * Get demande
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDemande()
+    {
+        return $this->demande;
     }
 }

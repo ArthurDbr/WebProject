@@ -10,6 +10,7 @@
 {% endif %}
 
 <section class="row-section">
+
 <div class="container">
     <div class="card hovercard">
         <div class="card-background">
@@ -23,7 +24,9 @@
 
         </div>
     </div>
-	<div class="card bg-light mb-3" style="max-width: 40rem;">
+
+    <div class="row">
+	<div class="col-md-4 card bg-light mb-3" >
 	<div class="card-body">
 		<h4 class="card-header card-title">General information</h4>
 		<table class="table table-hover">
@@ -56,10 +59,11 @@
 			</a>
 		</div>
 	</div>
-	<div>
+	<hr>
+	<div class="card-body">
 	<form action="{{ path('ModifTemplate') }}" method="POST">
 		<fieldset class="form-group">
-	      <legend>Changer de Thème</legend>
+	      <h4 class="card-header card-title">Changer de Thème</h4>
 	      <div class="form-check">
 	        <label class="form-check-label">
 	          <input class="form-check-input" name="template" id="optionsRadios1" value="United"  type="radio">
@@ -77,8 +81,7 @@
 		<input type="submit" value="Change" name="change" class="btn btn-success btn-md">
 	</form>
 	</div>
-
-
+	</div>
 	
 	</div>
 </div>

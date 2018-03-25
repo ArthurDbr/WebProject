@@ -7,7 +7,7 @@
 <br>
 <div class="container">
 <div class="align-item-center">
-<div class="row justify-content-center">	
+<div class="row ">	
 	<div class="card border-info col col-12" >
 		<div class="card-header text-center"><b>{{ typeEvent[event.idTypeEvenement] }}</b></div>
 		<div class="card-body">
@@ -37,10 +37,31 @@
 	   		</tr>
 	   		{% endif %}
 	   	</table>
-
+	   	{% if app.user.id == event.idPersonne %}
+	   	<h4 class="card-header card-title">Demande d'ajout</h4>
+		<table class="table table-hover">
+			<tbody>
+				<th>Username</th>
+				<th></th>
+				<th></th>
+	        	{% if  ( app.user.id == event.idPersonne  ) %}
+				{% for profil in profilDemande%}
+				<tr>
+					<td scope="row">{{ profil.username }}</td>
+					<td><a href="{{ path('addParticipant', { id1 :  event.id, id2 : profil.id }) }}">
+	                		<input type="submit" value="{{ 'accept.event'|trans }}" name="addParticipant" class="btn btn-success btn-sm btn-block"></a>
+					</td>
+					<td><a href="{{ path('refuseParticipant', { id1 :  event.id, id2 : profil.id }) }}">
+	                		<input type="submit" value="{{ 'refuse.event'|trans }}" name="deleteParticipant" class="btn btn-danger btn-sm btn-block"></a>
+					</td>
+				{% endfor %}
+				{% endif %}
+			</tbody>
+		</table>
+		{% endif %}
 		</div>
 	</div>
-</div>
+
 </div>
 </div>
 <br>

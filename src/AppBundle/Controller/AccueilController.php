@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Evenement;
 use AppBundle\Entity\Users;
 use AppBundle\Entity\ParticipantEvenement;
+use Doctrine\Common\Collections\ArrayCollection;
     
 /**
 * @Route("/user/{_locale}/accueil")
@@ -39,12 +40,27 @@ class AccueilController extends Controller{
             $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
             $repository2 = $this->getDoctrine()->getRepository(Users::class);
             $evenement = $repository1->findAll();
-            $profil = $repository2->findAll();
+            $profils = $repository2->findAll();
+            $profilDemande = new ArrayCollection();
+            foreach ($evenement as $event) {
+                foreach ($profils as $profil) {
+                    $demandes = $profil->getDemande();
+                    foreach ($demandes as $demande) {           
+                        if($demande->getId() == $event->getId() ){
+                            $profilDemande->add($profil);
+                        }
+                    }
+                }
+            }
+            foreach ($profils as $profil) {
+                $demandes = $profil->getDemande();
+            }
             
             return $this->render('Accueil/Accueil.html.twig', ['messageEvent' => '',
                 'typeEvent' => $typeEvent,
                 'evenement' => $evenement,
-                'profils'=> $profil,
+                'profils'=> $profils,
+                'demandes' => $profilDemande,
                 ]);
 
         } else {

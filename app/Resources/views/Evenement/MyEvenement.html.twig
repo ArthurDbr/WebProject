@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% if messageEvent != '' %}
+	<div class="alert alert-dismissible alert-secondary">
+	  <button type="button" class="close" data-dismiss="alert">&times;</button>
+	   {{messageEvent}}
+	</div>
+{% endif %}
 <div class="jumbotron">
   <h1 class="display-4">{{ 'title.myEvents'|trans }}</h1>
   <p class="lead">{{ 'description.myEvents'|trans }}</p>
