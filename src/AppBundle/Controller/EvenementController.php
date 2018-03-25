@@ -101,8 +101,9 @@ class EvenementController extends Controller{
     * @Route("/show/{id}", requirements={"id":"\d+"}, name="showEvenement")
     */
     public function showEvent(Request $request, Evenement $e){
-        $repository = $this->getDoctrine()->getRepository(Users::class);
-        $users = $repository->findAll();
+        $repository2 = $this->getDoctrine()->getRepository(Users::class);
+        $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
+        $users = $repository2->findAll();
         $participantEvenement = new ArrayCollection();
         foreach ($users as $user) {
             $events = $user->getListeEvenement();
@@ -124,8 +125,7 @@ class EvenementController extends Controller{
 
         $profil = $this->getUser();
         $demandes = $profil->getDemande();
-        $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
-        $repository2 = $this->getDoctrine()->getRepository(Users::class);
+        
 
         //$evenement = $repository1->findAll();
         $users = $repository2->findAll();
@@ -144,7 +144,7 @@ class EvenementController extends Controller{
             }
         }
 
-        return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $event,
+        return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $e,
                                                                 'participantEvenement' => $participantEvenement,
                                                                 'profilDemande' => $profilDemande,
                                                                 'typeEvent' => $typeEvent]);
