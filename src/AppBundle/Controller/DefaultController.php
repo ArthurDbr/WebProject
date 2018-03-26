@@ -18,7 +18,7 @@ class DefaultController extends Controller
     {
         // replace this example code with whatever you need
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
-            return $this->redirectToRoute('accueilAdmin');
+            return $this->redirectToRoute('sonata_admin_redirect');
         } else if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
             return $this->redirectToRoute('accueil');
         } else {
