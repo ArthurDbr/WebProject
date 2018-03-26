@@ -8,6 +8,14 @@ imports:
 parameters:
     locale: fr
 
+# AdminBundle
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+
 # FOSUser Configuration
 fos_user:
     db_driver: orm
@@ -41,6 +49,8 @@ framework:
     assets: ~
     php_errors:
         log: true
+    templating:
+            engines: ['twig']
 
 # Twig Configuration
 twig:

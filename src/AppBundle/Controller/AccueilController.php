@@ -28,13 +28,8 @@ class AccueilController extends Controller{
             5 => "Restaurant",
             6 => "Sport"];
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
-            $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
-            $repository2 = $this->getDoctrine()->getRepository(Users::class);
-            $evenement = $repository1->findAll();
-            $profil = $repository2->findAll();
-            return $this->render('Accueil/AccueilAdmin.html.twig', ['messageEvent' => '',
-                'evenement' => $evenement,
-                'profils'=> $profil ]);
+
+            return $this->redirectToRoute('sonata_admin_redirect');
 
         } else if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')){
             $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
