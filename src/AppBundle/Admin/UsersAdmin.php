@@ -29,7 +29,12 @@ class UsersAdmin extends AbstractAdmin
             ->add('nom')
             ->add('prenom')
             ->add('age')
-            ->add('template')
+            ->add('template', 'choice', [
+                'choices' => [
+                    1 => 'Orange',
+                    2 => 'Gris'
+                    ]
+            ])
         ;
     }
 
@@ -49,7 +54,12 @@ class UsersAdmin extends AbstractAdmin
             ->add('nom')
             ->add('prenom')
             ->add('age')
-            ->add('template')
+            ->add('template', 'choice', [
+                'choices' => [
+                    'United' => 'Orange',
+                    'Flatly' => 'Bleu'
+                ]
+            ])
             ->end()
         ;
     }
