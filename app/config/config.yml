@@ -8,6 +8,16 @@ imports:
 parameters:
     locale: fr
 
+#file ariane
+knp_menu:
+    # use "twig: false" to disable the Twig extension and the TwigRenderer
+    twig:
+        template: KnpMenuBundle::menu.html.twig
+    #  if true, enables the helper for PHP templates
+    templating: false
+    # the renderer to use, list is also available by default
+    default_renderer: twig
+
 # FOSUser Configuration
 fos_user:
     db_driver: orm
@@ -41,6 +51,18 @@ framework:
     assets: ~
     php_errors:
         log: true
+    templating:
+        engines: ['twig']
+
+#BundleAdmin
+sonata_block:
+    default_contexts: [sonata_page_bundle]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+        sonata.block.service.text:
+        sonata.block.service.rss:
 
 # Twig Configuration
 twig:
