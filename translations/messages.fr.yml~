@@ -21,5 +21,8 @@ Description.createEvent: 'Description :'
 Lieu.createEvent: 'Lieu :'
 Date.createEvent: 'Date :'
 Heure.createEvent: 'Heure :'
-accept.event: 'Accepter'
-refuse.event: 'Refuser'
+accept.event: Accepter
+refuse.event: Refuser
+demand.event: 'Demande envoyé'
+titleAdmin.allProfil: "Profils Controlleur"
+descriptionAdmin.allProfil: "Ici vous pouvez gérer les profils"

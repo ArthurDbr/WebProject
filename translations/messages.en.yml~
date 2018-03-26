@@ -23,3 +23,6 @@ Date.createEvent: 'Date :'
 Heure.createEvent: 'Time :'
 accept.event: Accept
 refuse.event: Refuse
+demand.event: 'Demand send'
+titleAdmin.allProfil: "Profil Controller"
+descriptionAdmin.allProfil: "Here you can delete users profil"
