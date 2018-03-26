@@ -21,6 +21,9 @@ class ProfilController extends Controller{
     * @throws \LogicException
     */
     public function indexAction(Request $request){
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
+        $breadcrumbs->addItem("MyProfil");
 
         $typeEvent = [ 1 => "Party", 
                     2 => "Study", 
@@ -134,6 +137,10 @@ class ProfilController extends Controller{
     * @throws \LogicException
     */
     public function ModifProfil(Request $request){
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
+        $breadcrumbs->addItem("Profil", $this->get("router")->generate("MyProfil"));
+        $breadcrumbs->addItem("ModifProfil");
         $profil = $this->getUser();
 
         if( isset($_POST['modifer'])){

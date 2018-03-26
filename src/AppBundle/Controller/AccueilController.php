@@ -50,10 +50,15 @@ class AccueilController extends Controller{
             foreach ($profils as $profil) {
                 $demandes = $profil->getDemande();
             }
+
+            $breadcrumbs = $this->get("white_october_breadcrumbs");
+            $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
+            $breadcrumbs->addItem("");
             
             return $this->render('Accueil/Accueil.html.twig', ['messageEvent' => '',
                 'typeEvent' => $typeEvent,
                 'evenement' => $evenement,
+                'breadcrumbs' => $breadcrumbs,
                 'profils'=> $profils,
                 'demandes' => $profilDemande,
                 ]);
@@ -69,6 +74,7 @@ class AccueilController extends Controller{
     * @Route("/createEvent", name="event")
     */
     public function CreerEvent(Request $request){
+
         return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '']);
     }
 
@@ -76,6 +82,9 @@ class AccueilController extends Controller{
     * @Route("/about", name="About")
     */
     public function about(Request $request){
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
+        $breadcrumbs->addItem("About");
         $message = "Ce site web a été réalisé avec Symfony 3.4 et Bootstrap dans le cadre 
         d'un projet de developpement Web.";
         $auteur = "Auteurs : BOIRO Mamadou, DEBAR Arthur, VALENZA Pierre";

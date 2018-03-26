@@ -39,6 +39,10 @@ class EvenementController extends Controller{
                     5 => "Restaurant",
                     6 => "Sport"];
 
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
+        $breadcrumbs->addItem("MyEvent");
+
         
         return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement, 
                                                                 'profils'=> $profils,
@@ -52,6 +56,10 @@ class EvenementController extends Controller{
     * @Route("/{id}", requirements={"id":"\d+"}, name="addParticipantEvent")
     */
     public function addParticipantEvent(Request $request, Evenement $e){
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
+        $breadcrumbs->addItem("addParticipantEvent");
+
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository(Evenement::class);
         $repository2 = $this->getDoctrine()->getRepository(Users::class);
@@ -96,6 +104,10 @@ class EvenementController extends Controller{
      * @Route("/show", name="showAllEvenement")
      */
     public function showAllEvent(Request $request){
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
+        $breadcrumbs->addItem("showAllEvenement");
+
         $typeEvent = [ 1 => "Party", 
             2 => "Study", 
             3 => "Theatre", 
@@ -112,6 +124,11 @@ class EvenementController extends Controller{
     * @Route("/show/{id}", requirements={"id":"\d+"}, name="showEvenement")
     */
     public function showEvent(Request $request, Evenement $e){
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
+        $breadcrumbs->addItem("MyEvent", $this->get("router")->generate("MyEvent"));
+        $breadcrumbs->addItem("showEvenement");
+
         $repository2 = $this->getDoctrine()->getRepository(Users::class);
         $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
         $users = $repository2->findAll();
@@ -258,6 +275,9 @@ class EvenementController extends Controller{
     * @throws \LogicException
     */
     public function ajoutEvent(Request $request ){
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
+        $breadcrumbs->addItem("addEvent");
 
         $typeEvent = [  1 => "Party", 
                         2 => "Study", 
