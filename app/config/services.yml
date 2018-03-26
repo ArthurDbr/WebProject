@@ -33,3 +33,27 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    admin.evenement:
+        class: AppBundle\Admin\EvenementAdmin
+        arguments: [~, AppBundle\Entity\Evenement, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Evenement }
+        public: true
+
+    admin.users:
+            class: AppBundle\Admin\UsersAdmin
+            arguments: [~, AppBundle\Entity\Users, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Users }
+            public: true
+
+    app.menu_builder:
+            class: AppBundle\Menu\MenuBuilder
+            arguments: ["@knp_menu.factory"]
+
+    app.main_menu:
+            class: Knp\Menu\MenuItem # the service definition requires setting the class
+            factory: ["@app.menu_builder", createMainMenu]
+            arguments: ["@request_stack"]
+            tags:
+                - { name: knp_menu.menu, alias: main } # The alias is what is used to retrieve the menu
