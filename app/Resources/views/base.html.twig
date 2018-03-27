@@ -63,11 +63,12 @@
             <a type="button" class="btn langueBouton" href="{{ path('accueil_index', {'_locale':'en'}) }}">En</a>
           </ul>
           </div>
+            <a href="{{ path('rss') }}"><img style='width:50px;' src="{{ asset('img/rss.png') }}" alt=""></a>
         </nav>
 
 
-
         {{ wo_render_breadcrumbs() }}
+
         {% block body %}
 
         {% endblock %}
