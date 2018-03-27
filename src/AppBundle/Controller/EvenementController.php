@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use SimpleXMLElement;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Evenement;
@@ -17,45 +18,48 @@ use Doctrine\ORM\Query\Expr;
 /**
 * @Route("/user/{_locale}/Event")
 */
-class EvenementController extends Controller{
-	/**
-    * @Route("/", name="MyEvent")
-    * @return \Symfony\Component\httpFoundation\Response
-    * @throws \LogicException
-    */
-    public function indexAction(Request $request){
+class EvenementController extends Controller
+{
+    /**
+     * @Route("/", name="MyEvent")
+     * @return \Symfony\Component\httpFoundation\Response
+     * @throws \LogicException
+     */
+    public function indexAction(Request $request)
+    {
         $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
         $repository2 = $this->getDoctrine()->getRepository(Users::class);
         $evenement = $repository1->findAll();
         $profils = $repository2->findAll();
         $user = $this->getUser();
         $participantEvenement = $user->getListeEvenement();
-        $message="";
+        $message = "";
 
-        $typeEvent = [ 1 => "Party", 
-                    2 => "Study", 
-                    3 => "Theatre", 
-                    4 => "Cinema",
-                    5 => "Restaurant",
-                    6 => "Sport"];
+        $typeEvent = [1 => "Party",
+            2 => "Study",
+            3 => "Theatre",
+            4 => "Cinema",
+            5 => "Restaurant",
+            6 => "Sport"];
 
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
         $breadcrumbs->addItem("MyEvent");
 
-        
-        return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement, 
-                                                                'profils'=> $profils,
-                                                                'messageEvent' => $message,
-                                                                'typeEvent' => $typeEvent,
-                                                                'user' => $user,
-                                                                'participantEvenement'=> $participantEvenement,]);
+
+        return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement,
+            'profils' => $profils,
+            'messageEvent' => $message,
+            'typeEvent' => $typeEvent,
+            'user' => $user,
+            'participantEvenement' => $participantEvenement,]);
     }
 
     /**
-    * @Route("/{id}", requirements={"id":"\d+"}, name="addParticipantEvent")
-    */
-    public function addParticipantEvent(Request $request, Evenement $e){
+     * @Route("/{id}", requirements={"id":"\d+"}, name="addParticipantEvent")
+     */
+    public function addParticipantEvent(Request $request, Evenement $e)
+    {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
         $breadcrumbs->addItem("addParticipantEvent");
@@ -67,9 +71,9 @@ class EvenementController extends Controller{
         $profils = $repository2->findAll();
         $profil = $this->getUser();
         $participantEvenement = new Users();
-        $typeEvent = [ 1 => "Party", 
-            2 => "Study", 
-            3 => "Theatre", 
+        $typeEvent = [1 => "Party",
+            2 => "Study",
+            3 => "Theatre",
             4 => "Cinema",
             5 => "Restaurant",
             6 => "Sport"];
@@ -79,7 +83,7 @@ class EvenementController extends Controller{
         foreach ($profils as $profilEvent) {
             $evenment = $profilEvent->getListeEvenement();
             foreach ($evenment as $event) {
-                if($event->getId() == $e->getId()){
+                if ($event->getId() == $e->getId()) {
                     $profilEvent->setNotification(true);
                     $em->persist($profilEvent);
                     $em->flush();
@@ -89,41 +93,43 @@ class EvenementController extends Controller{
         }
         $em->persist($profil);
         $em->flush();
-            
+
         $message = "Demande envoyé à l'utilisateur !";
 
-        return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement, 
-                                                                'profils'=> $profils,
-                                                                'messageEvent' => $message,
-                                                                'typeEvent' => $typeEvent,
-                                                                'user' => $profil,
-                                                                'participantEvenement'=> $participantEvenement,]);
+        return $this->render('Evenement/MyEvenement.html.twig', ['evenement' => $evenement,
+            'profils' => $profils,
+            'messageEvent' => $message,
+            'typeEvent' => $typeEvent,
+            'user' => $profil,
+            'participantEvenement' => $participantEvenement,]);
     }
 
     /**
      * @Route("/show", name="showAllEvenement")
      */
-    public function showAllEvent(Request $request){
+    public function showAllEvent(Request $request)
+    {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
         $breadcrumbs->addItem("showAllEvenement");
 
-        $typeEvent = [ 1 => "Party", 
-            2 => "Study", 
-            3 => "Theatre", 
+        $typeEvent = [1 => "Party",
+            2 => "Study",
+            3 => "Theatre",
             4 => "Cinema",
             5 => "Restaurant",
             6 => "Sport"];
         $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
         $evenement = $repository1->findAll();
         return $this->render('Evenement/ShowAllEventAdmin.html.twig', ['evenement' => $evenement,
-                                                                        'typeEvent' => $typeEvent]);
+            'typeEvent' => $typeEvent]);
     }
 
     /**
-    * @Route("/show/{id}", requirements={"id":"\d+"}, name="showEvenement")
-    */
-    public function showEvent(Request $request, Evenement $e){
+     * @Route("/show/{id}", requirements={"id":"\d+"}, name="showEvenement")
+     */
+    public function showEvent(Request $request, Evenement $e)
+    {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
         $breadcrumbs->addItem("MyEvent", $this->get("router")->generate("MyEvent"));
@@ -137,23 +143,23 @@ class EvenementController extends Controller{
             $events = $user->getListeEvenement();
             $ajoute = true;
             foreach ($events as $event) {
-                if($event->getId() == $e->getId()){
-                     $participantEvenement->add($user); 
-                   
+                if ($event->getId() == $e->getId()) {
+                    $participantEvenement->add($user);
+
                 }
             }
         }
-        
-        $typeEvent = [ 1 => "Party", 
-            2 => "Study", 
-            3 => "Theatre", 
+
+        $typeEvent = [1 => "Party",
+            2 => "Study",
+            3 => "Theatre",
             4 => "Cinema",
             5 => "Restaurant",
             6 => "Sport"];
 
         $profil = $this->getUser();
         $demandes = $profil->getDemande();
-        
+
 
         //$evenement = $repository1->findAll();
         $users = $repository2->findAll();
@@ -164,8 +170,8 @@ class EvenementController extends Controller{
         foreach ($evenement as $event) {
             foreach ($users as $user) {
                 $demandes = $user->getDemande();
-                foreach ($demandes as $demande) {           
-                    if($demande->getId() == $event->getId() ){
+                foreach ($demandes as $demande) {
+                    if ($demande->getId() == $event->getId()) {
                         $profilDemande->add($user);
                     }
                 }
@@ -173,28 +179,29 @@ class EvenementController extends Controller{
         }
 
         return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $e,
-                                                                'participantEvenement' => $participantEvenement,
-                                                                'profilDemande' => $profilDemande,
-                                                                'typeEvent' => $typeEvent]);
+            'participantEvenement' => $participantEvenement,
+            'profilDemande' => $profilDemande,
+            'typeEvent' => $typeEvent]);
     }
 
     /**
-    * @Route("/unsubscribe/{id}",  requirements={"id":"\d+"}, name="unsubscribe")
-    */
-    public function unsubscribe(Request $request, Evenement $event){
+     * @Route("/unsubscribe/{id}",  requirements={"id":"\d+"}, name="unsubscribe")
+     */
+    public function unsubscribe(Request $request, Evenement $event)
+    {
 
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $user->removeListeEvenement($event);
         $em->persist($user);
         $em->flush();
-/*        $event->removeListeUser($user);
-        $em->persist($user);
-        $em->flush();*/
+        /*        $event->removeListeUser($user);
+                $em->persist($user);
+                $em->flush();*/
 
-        $typeEvent = [ 1 => "Party", 
-            2 => "Study", 
-            3 => "Theatre", 
+        $typeEvent = [1 => "Party",
+            2 => "Study",
+            3 => "Theatre",
             4 => "Cinema",
             5 => "Restaurant",
             6 => "Sport"];
@@ -203,52 +210,55 @@ class EvenementController extends Controller{
     }
 
     /**
-    * @Route("/modify/{id}", requirements={"id":"\d+"}, name="modifyEvenement")
-    */
-    public function modifyEvent(Request $request, Evenement $event){
-        $typeEvent = [ 1 => "Party",
-            2 => "Study", 
-            3 => "Theatre", 
+     * @Route("/modify/{id}", requirements={"id":"\d+"}, name="modifyEvenement")
+     */
+    public function modifyEvent(Request $request, Evenement $event)
+    {
+        $typeEvent = [1 => "Party",
+            2 => "Study",
+            3 => "Theatre",
             4 => "Cinema",
             5 => "Restaurant",
             6 => "Sport"];
         $userId = $this->getUser()->getId();
 
-        if( isset($_POST["Categorie"])){
-                $em = $this->getDoctrine()->getManager();
-                
+        if (isset($_POST["Categorie"])) {
+            $em = $this->getDoctrine()->getManager();
 
-                $lieu = addcslashes($_POST['Lieu'], '\'%_');
-                $descri = addcslashes($_POST['Description'], '\'%_"/');
-                $categ = (int)$_POST['Categorie'];
-                $date = $_POST['date'];
-                $heure = $_POST['heure'];
 
-                $event->setLieu($lieu);
-                $event->setDescription($descri);
-                $event->setIdPersonne($userId);
-                $event->setIdTypeEvenement($categ);
-                $event->setDateEvenement($date);
-                $event->setHeureEvenement($heure);
-                $em = $this->getDoctrine()->getManager();
+            $lieu = addcslashes($_POST['Lieu'], '\'%_');
+            $descri = addcslashes($_POST['Description'], '\'%_"/');
+            $categ = (int)$_POST['Categorie'];
+            $date = $_POST['date'];
+            $heure = $_POST['heure'];
 
-                // Étape 1 : On « persiste » l'entité
-                $em->persist($event);
+            $event->setLieu($lieu);
+            $event->setDescription($descri);
+            $event->setIdPersonne($userId);
+            $event->setIdTypeEvenement($categ);
+            $event->setDateEvenement($date);
+            $event->setHeureEvenement($heure);
+            $em = $this->getDoctrine()->getManager();
 
-                // Étape 2 : On « flush » 
-                $em->flush();
+            // Étape 1 : On « persiste » l'entité
+            $em->persist($event);
 
-                return $this->redirectToRoute('MyEvent');
+            // Étape 2 : On « flush »
+            $em->flush();
 
-            
+            return $this->redirectToRoute('MyEvent');
+
+
         }
 
-        return $this->render('Evenement/ModifyEvenement.html.twig', ['event' => $event, 'erreur' => '', 'typeEvent' => $typeEvent]);     }
+        return $this->render('Evenement/ModifyEvenement.html.twig', ['event' => $event, 'erreur' => '', 'typeEvent' => $typeEvent]);
+    }
 
     /**
      * @Route("/delete/{id}", requirements={"id":"\d+"}, name="deleteEvenement")
      */
-    public function deleteEvent(Request $request, Evenement $event){
+    public function deleteEvent(Request $request, Evenement $event)
+    {
         $em = $this->getDoctrine()->getManager();
         $em->remove($event);
         $em->flush();
@@ -258,9 +268,10 @@ class EvenementController extends Controller{
 
 
     /**
-    * @Route("/delete/{id}", requirements={"id":"\d+"}, name="deleteAllEvenement")
-    */
-    public function deleteAllEvent(Request $request, Evenement $event){
+     * @Route("/delete/{id}", requirements={"id":"\d+"}, name="deleteAllEvenement")
+     */
+    public function deleteAllEvent(Request $request, Evenement $event)
+    {
         $em = $this->getDoctrine()->getManager();
         $em->remove($event);
         $em->flush();
@@ -270,38 +281,39 @@ class EvenementController extends Controller{
 
 
     /**
-    * @Route("/ajoutEvent", name="ajoutEvent")
-    * @return \Symfony\Component\httpFoundation\Response
-    * @throws \LogicException
-    */
-    public function ajoutEvent(Request $request ){
+     * @Route("/ajoutEvent", name="ajoutEvent")
+     * @return \Symfony\Component\httpFoundation\Response
+     * @throws \LogicException
+     */
+    public function ajoutEvent(Request $request)
+    {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
         $breadcrumbs->addItem("addEvent");
 
-        $typeEvent = [  1 => "Party", 
-                        2 => "Study", 
-                        3 => "Theatre", 
-                        4 => "Cinema",
-                        5 => "Restaurant",
-                        6 => "Sport"];
+        $typeEvent = [1 => "Party",
+            2 => "Study",
+            3 => "Theatre",
+            4 => "Cinema",
+            5 => "Restaurant",
+            6 => "Sport"];
         $em = $this->getDoctrine()->getManager();
         $evenement = new Evenement();
         $userId = $this->getUser()->getId();
         $profil = $this->getUser();
 
-        if(isset($_POST['ajouter'])){
-            if( ($_POST['Categorie'] == '0') || empty($_POST['Lieu']) || empty($_POST['Description'])|| empty($_POST['date']) || empty($_POST['heure'])){
+        if (isset($_POST['ajouter'])) {
+            if (($_POST['Categorie'] == '0') || empty($_POST['Lieu']) || empty($_POST['Description']) || empty($_POST['date']) || empty($_POST['heure'])) {
                 return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => 'You need to provide all the fields',
-                                                                            'categorie' => $_POST['Categorie'],
-                                                                            'description' => $_POST['Description'],
-                                                                            'lieu' => $_POST['Lieu'],
-                                                                            'date' => $_POST['date'],
-                                                                            'heure' => $_POST['heure'],
-                                                                            'types' => $typeEvent,
+                    'categorie' => $_POST['Categorie'],
+                    'description' => $_POST['Description'],
+                    'lieu' => $_POST['Lieu'],
+                    'date' => $_POST['date'],
+                    'heure' => $_POST['heure'],
+                    'types' => $typeEvent,
 
                 ]);
-            }else{
+            } else {
                 $lieu = addcslashes($_POST['Lieu'], '\'%_');
                 $descri = addcslashes($_POST['Description'], '\'%_"/');
                 $categ = (int)$_POST['Categorie'];
@@ -324,24 +336,64 @@ class EvenementController extends Controller{
                 $em->flush();
 
 
-
                 return $this->redirectToRoute('MyEvent');
             }
-        }else{
+        } else {
             return $this->render('Evenement/CreerEvenement.html.twig', ['erreur' => '',
-                                                                        'types' => array( 'Select a categorie',
-                                                                        'Party', 
-                                                                        'Study', 
-                                                                        'Théatre', 
-                                                                        'Cinema', 
-                                                                        'Restaurant', 
-                                                                        'Sport'),
-                                                                     'categorie' => 0,
+                'types' => array('Select a categorie',
+                    'Party',
+                    'Study',
+                    'Théatre',
+                    'Cinema',
+                    'Restaurant',
+                    'Sport'),
+                'categorie' => 0,
             ]);
         }
     }
-    
 
+    //Génération d'un flux rss au format xml et affichage d'uen page xml
+    /**
+     * @Route("rss", name="rss", defaults={"_format"="xml"})
+     */
+    public function rss()
+    {
+        $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
+        $evenement = $repository1->findAll();
+        $xml = new SimpleXMLElement('<rss/>');
+        foreach ($evenement as $e) {
+            $type = '';
+            switch ($e->getIdTypeEvenement()){
+                case 1 : $type = 'Party';
+                    break;
+                case 2 : $type = 'Study';
+                    break;
+                case 3 : $type = 'Théatre';
+                    break;
+                case 4 : $type = 'Cinema';
+                    break;
+                case 5 : $type = 'Restaurant';
+                    break;
+                case 6 : $type = 'Sport';
+                    break;
+            }
+            $event = $xml->addChild("channel");
+            $event->addChild("Description", $e->getDescription());
+            $event->addChild("Link", "http://localhost/public_html/L3/WebProject/web/app_dev.php/user/fr/Event/show/" . $e->getId());
+            $event->addChild("Lieu", $e->getLieu());
+            $event->addChild("DateEvenement", $e->getDateEvenement());
+            $event->addChild("HeureEvenement", $e->getHeureEvenement());
+            $event->addChild("Type", $type);
+        }
 
+        $xml->asXML('temp/evenement.rss');
+
+        return $this->render('RSS/rss.xml.twig', ['titre' => 'Community',
+                                                    'link' => 'http://localhost/public_html/L3/WebProject/web/app_dev.php/',
+                                                    'description' => 'Liste des événements de Community',
+                                                    'evenement' => $evenement,
+                                                    'linkEvent' => 'http://localhost/public_html/L3/WebProject/web/app_dev.php/user/fr/Event/show/'
+        ]);
+    }
 }
 ?>
