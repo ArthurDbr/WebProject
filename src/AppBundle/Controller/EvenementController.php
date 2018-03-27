@@ -130,11 +130,6 @@ class EvenementController extends Controller
      */
     public function showEvent(Request $request, Evenement $e)
     {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
-        $breadcrumbs->addItem("MyEvent", $this->get("router")->generate("MyEvent"));
-        $breadcrumbs->addItem("showEvenement");
-
         $repository2 = $this->getDoctrine()->getRepository(Users::class);
         $repository1 = $this->getDoctrine()->getRepository(Evenement::class);
         $users = $repository2->findAll();
@@ -177,6 +172,12 @@ class EvenementController extends Controller
                 }
             }
         }
+
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("accueil_index"));
+        $breadcrumbs->addItem("MyEvent", $this->get("router")->generate("MyEvent"));
+        $breadcrumbs->addItem("showEvenement");
+        $breadcrumbs->addItem($e->getDescription());
 
         return $this->render('Evenement/ShowEvenement.html.twig', ['event' => $e,
             'participantEvenement' => $participantEvenement,
