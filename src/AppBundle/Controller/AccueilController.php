@@ -27,6 +27,9 @@ class AccueilController extends Controller{
             4 => "Cinema",
             5 => "Restaurant",
             6 => "Sport"];
+
+        /*Si le role est user orienter vers la page accueil si le role est admin on 
+        utilise le bondle sonata*/
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
 
             return $this->redirectToRoute('sonata_admin_redirect');
@@ -142,7 +145,7 @@ class AccueilController extends Controller{
                         break;
                 }
                 $evenements = $em->getRepository('AppBundle:Evenement')
-                            ->research($mot);
+                                ->research($mot);
 
                 if (!$evenements) {
                     return $this->render('Accueil/Accueil.html.twig', ['messageEvent' => 'OOPS, no event found',
