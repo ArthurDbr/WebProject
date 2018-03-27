@@ -57,4 +57,5 @@ class DefaultController extends Controller
             'evenement' => $evenement,
             'profils'=> $profil ]);
     }
+
 }
