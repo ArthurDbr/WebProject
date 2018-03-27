@@ -13,9 +13,9 @@ more.event: 'More info'
 participate.event: Participate
 unsubscribe.event: Unsubscribe
 delete.event: Delete
-modify.event: Modify
-title.about: About
-nav.about: About
+modify.event: 'Modify'
+title.about: 'About'
+nav.about: 'About'
 Categorie.createEvent: 'Category :'
 Description.createEvent: 'Description :'
 Lieu.createEvent: 'Location :'

@@ -12,8 +12,8 @@ bouton.Deconnexion: Deconnexion
 more.event: 'Plus d''info'
 participate.event: Participer
 unsubscribe.event: Désinscription
-delete.event: Supprimer
-modify.event: Modifier
+delete.event: 'Supprimer'
+modify.event: 'Modifier'
 title.about: 'A Propos'
 nav.about: 'A propos'
 Categorie.createEvent: 'Catégorie :'

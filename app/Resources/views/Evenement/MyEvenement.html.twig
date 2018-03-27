@@ -8,7 +8,7 @@
 	</div>
 {% endif %}
 <div class="jumbotron">
-  <h1 class="display-4">{{ 'title.myEvents'|trans }}</h1>
+  <h1 class="display-6">{{ 'title.myEvents'|trans }}</h1>
   <p class="lead">{{ 'description.myEvents'|trans }}</p>
   <hr class="my-4">
 </div>
@@ -44,25 +44,26 @@
 								</p>
 							</div>
 							<div class="media-body">
-							
+							</p>
 							<b>{{ event.description }}</b>
 						</div>
 						<div class="col-xs-4 align-self-center largeur" >
 							<div class="media-right align-self-center">
 			                <a href="{{ path('showEvenement', { id :  event.id }) }}"><input type="submit" 
-			                value="{{ 'more.event'|trans }}" name="Info" class="btn btn-info btn-xs btn-block"></a>
+			                value="{{ 'more.event'|trans }}" name="Info" class="btn btn-info btn-sm btn-block"></a>
 			            	</div>
-			            	<br>
+			            	<hr>
 			            	{% if event.idPersonne == user.id %}
 							<div class="media-right align-self-center">
 			                <a href="{{ path('deleteEvenement' , { id :  event.id }) }}"><input type="submit" 
-			                value="{{ 'delete.event'|trans }}" name="Info" class="btn btn-danger btn-xs btn-block"></a>
+			                value="{{ 'delete.event'|trans }}" name="Info" class="btn btn-danger btn-sm btn-block"></a>
 			            	</div>
 			            	{% else %}
 			            	<div class="media-right align-self-center">
 			                <a href="{{ path('unsubscribe', { id :  event.id }) }}"><input type="submit" 
-			                value="{{ 'unsubscribe.event'|trans }}" name="Info" class="btn btn-danger btn-xs btn-block"></a>
+			                value="{{ 'unsubscribe.event'|trans }}" name="Info" class="btn btn-danger btn-sm btn-block"></a>
 			            	</div>
+
 
 							{% endif %}
 						</div>
